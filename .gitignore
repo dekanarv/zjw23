@@ -49,4 +49,5 @@ temp/
 # ===== 本地私密文件 =====
 *.key
 *.pem
-.env.local
+.env.local<!-- 预览截图临时目录 -->
+.preview/
