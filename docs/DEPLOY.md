@@ -14,11 +14,26 @@
 | 启用 GitHub Pages | ✅ 已完成 | main 分支 / 根目录，状态 built |
 | 解绑 smalltools 域名 | ✅ 已完成 | 工具箱已回退 `dekanarv.github.io/smalltools/` |
 | www.kanerg.com 的 A 记录 | ✅ 早已配好 | 指向185.199.108~111.153 |
-| **kanerg.com 裸域 A 记录** | ⏳ **待你操作** | **当前为空，缺这条无法签发证书** |
+| **kanerg.com裸域 A 记录** | ⏳ **待你操作** | **当前为空** |
 
 ---
 
-## 二、你需要做的（只需1 步）
+## ⚠️ 重要：现在必须尽快加 DNS，否则官网无法访问
+
+CNAME 文件生效后，GitHub 已把 `dekanarv.github.io/zjw23/` **301 重定向**到 `http://kanerg.com/`。
+
+但裸域 `kanerg.com` 的 A 记录是空的，导致：
+
+```
+dekanarv.github.io/zjw23/  →301→  kanerg.com  →  DNS 解析失败  →  访问不了
+```
+
+**在 DNS 配好之前，官网的 github.io 地址也会跟着不可用。**
+所以第2 节的 DNS 配置是**当前唯一的阻塞项**，请优先处理。
+
+---
+
+## 二、你需要做的（只需 1 步）
 
 登录阿里云 DNS 控制台，为 **kanerg.com** 添加 **4 条 A 记录**。
 
@@ -49,6 +64,16 @@ DNS 生效后，GitHub 会自动完成：
 3. `kanerg.com` 和 `www.kanerg.com` 自动跳转到 https
 
 **无需再手动操作**，我会在验证后向你确认结果。
+
+### 如果想先撤销重定向、恢复 github.io 访问
+
+如果你暂时不想配 DNS、想让github.io 地址先能用，把仓库里的 CNAME 文件删掉即可回到默认地址：
+
+```bash
+git rm CNAME && git commit -m "chore: 移除 CNAME" && git push
+```
+
+代价是自定义域名设置会被 GitHub 清空，之后要重新绑定。
 
 ---
 
