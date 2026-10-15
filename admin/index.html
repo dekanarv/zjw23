@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>后台管理 | 占位模板</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin">
+
+<div class="admin-shell" id="adminShell">
+
+  <!-- ========== 侧边栏 ========== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__brand">
+      <span class="brand__mark">LOGO</span>
+      <div class="sidebar__brand-text">
+        <strong>管理后台</strong>
+        <small>Admin Console</small>
+      </div>
+    </div>
+
+    <nav class="sidebar__nav" aria-label="后台导航">
+      <!-- 概览 -->
+      <span class="sidebar__group">概览</span>
+      <a href="#/dashboard" class="sidebar__link is-active" data-route="dashboard">
+        <span class="sidebar__icon">▦</span> 仪表盘
+      </a>
+
+      <!-- 内容管理 -->
+      <span class="sidebar__group">内容管理</span>
+      <a href="#/posts" class="sidebar__link" data-route="posts">
+        <span class="sidebar__icon">✎</span> 文章管理
+        <em class="sidebar__count">12</em>
+      </a>
+      <a href="#/cases" class="sidebar__link" data-route="cases">
+        <span class="sidebar__icon">◈</span> 案例管理
+      </a>
+      <a href="#/products" class="sidebar__link" data-route="products">
+        <span class="sidebar__icon">◧</span> 产品/服务
+      </a>
+      <a href="#/categories" class="sidebar__link" data-route="categories">
+        <span class="sidebar__icon">≡</span> 分类与标签
+      </a>
+
+      <!-- 客户与线索 -->
+      <span class="sidebar__group">客户与线索</span>
+      <a href="#/leads" class="sidebar__link" data-route="leads">
+        <span class="sidebar__icon">✉</span> 咨询留言
+        <em class="sidebar__count sidebar__count--warn">5</em>
+      </a>
+      <a href="#/customers" class="sidebar__link" data-route="customers">
+        <span class="sidebar__icon">☺</span> 客户列表
+      </a>
+
+      <!-- 系统 -->
+      <span class="sidebar__group">系统</span>
+      <a href="#/users" class="sidebar__link" data-route="users">
+        <span class="sidebar__icon">☰</span> 用户与权限
+      </a>
+      <a href="#/settings" class="sidebar__link" data-route="settings">
+        <span class="sidebar__icon">⚙</span> 系统设置
+      </a>
+    </nav>
+
+    <div class="sidebar__foot">
+      <a href="../index.html" class="sidebar__site-link">← 返回官网</a>
+    </div>
+  </aside>
+
+  <!-- 移动端遮罩 -->
+  <div class="sidebar-mask" id="sidebarMask"></div>
+
+  <!-- ========== 主区域 ========== -->
+  <div class="main">
+
+    <!-- 顶栏 -->
+    <header class="topbar-adm">
+      <button class="icon-btn burger" id="burger" aria-label="切换菜单">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="breadcrumb" aria-label="面包屑">
+        <span>首页</span>
+        <i>/</i>
+        <b id="crumb">仪表盘</b>
+      </nav>
+
+      <div class="topbar-adm__right">
+        <button class="icon-btn" id="searchBtn" aria-label="搜索">🔍</button>
+        <button class="icon-btn icon-btn--dot" aria-label="通知">🔔<i></i></button>
+
+        <div class="user-chip" id="userChip">
+          <span class="avatar">管</span>
+          <div class="user-chip__text">
+            <strong>管理员</strong>
+            <small>admin@example.com</small>
+          </div>
+          <span class="user-chip__caret">▾</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- 页面容器 -->
+    <main class="content" id="content">
+
+      <!-- ============ 视图：仪表盘 ============ -->
+      <section class="view" data-view="dashboard">
+        <div class="page-head">
+          <div>
+            <h1 class="page-head__title">仪表盘</h1>
+            <p class="page-head__desc">站点整体运行概览（占位数据）。</p>
+          </div>
+          <div class="page-head__actions">
+            <button class="btn btn--ghost btn--sm">导出报表</button>
+            <button class="btn btn--primary btn--sm">+ 新建内容</button>
+          </div>
+        </div>
+
+        <!-- KPI 卡片 -->
+        <div class="grid grid--4 kpi">
+          <div class="card kpi__item">
+            <span class="kpi__label">总访问量</span>
+            <b class="kpi__value">128,430</b>
+            <span class="kpi__trend kpi__trend--up">▲ 12.4% 环比</span>
+          </div>
+          <div class="card kpi__item">
+            <span class="kpi__label">新增线索</span>
+            <b class="kpi__value">326</b>
+            <span class="kpi__trend kpi__trend--up">▲ 8.1% 环比</span>
+          </div>
+          <div class="card kpi__item">
+            <span class="kpi__label">内容总数</span>
+            <b class="kpi__value">1,204</b>
+            <span class="kpi__trend kpi__trend--down">▼ 2.3% 环比</span>
+          </div>
+          <div class="card kpi__item">
+            <span class="kpi__label">待处理咨询</span>
+            <b class="kpi__value">5</b>
+            <span class="kpi__trend kpi__trend--flat">— 保持不变</span>
+          </div>
+        </div>
+
+        <!-- 图表占位 + 待办 -->
+        <div class="dash-split">
+          <div class="card dash-chart">
+            <div class="card__head">
+              <h2>访问趋势</h2>
+              <div class="segmented">
+                <button class="is-active">近 7 天</button>
+                <button>近 30 天</button>
+                <button>全年</button>
+              </div>
+            </div>
+            <div class="chart-placeholder">
+              <div class="chart-placeholder__grid"></div>
+              <div class="chart-placeholder__bars">
+                <i style="--h:42%"></i><i style="--h:58%"></i><i style="--h:47%"></i>
+                <i style="--h:72%"></i><i style="--h:63%"></i><i style="--h:88%"></i>
+                <i style="--h:76%"></i>
+              </div>
+              <p>图表组件占位 · 后续接入 ECharts / Chart.js</p>
+            </div>
+          </div>
+
+          <div class="card dash-todo">
+            <div class="card__head">
+              <h2>待办事项</h2>
+              <a href="#/leads" class="card__more">全部 →</a>
+            </div>
+            <ul class="todo">
+              <li class="todo__item">
+                <span class="badge badge--danger">紧急</span>
+                <span class="todo__text">5 条新咨询待回复</span>
+                <span class="todo__time">10 分钟前</span>
+              </li>
+              <li class="todo__item">
+                <span class="badge badge--warning">待审</span>
+                <span class="todo__text">2 篇文章待审核</span>
+                <span class="todo__time">1 小时前</span>
+              </li>
+              <li class="todo__item">
+                <span class="badge badge--info">计划</span>
+                <span class="todo__text">首页主视觉待更新</span>
+                <span class="todo__time">今日</span>
+              </li>
+              <li class="todo__item">
+                <span class="badge">常规</span>
+                <span class="todo__text">季度报表生成</span>
+                <span class="todo__time">本周五</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 近期内容表格 -->
+        <div class="card">
+          <div class="card__head">
+            <h2>最近更新</h2>
+            <a href="#/posts" class="card__more">查看全部 →</a>
+          </div>
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>标题</th>
+                  <th>类型</th>
+                  <th>状态</th>
+                  <th>更新人</th>
+                  <th>更新时间</th>
+                  <th class="ta-right">操作</th>
+                </tr>
+              </thead>
+              <tbody id="recentRows">
+                <!-- 由 admin.js 渲染占位数据 -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 视图：通用列表页（占位） ============ -->
+      <section class="view" data-view="list" hidden>
+        <div class="page-head">
+          <div>
+            <h1 class="page-head__title" id="listTitle">列表</h1>
+            <p class="page-head__desc" id="listDesc">列表页占位，字段与操作可按需扩展。</p>
+          </div>
+          <div class="page-head__actions">
+            <button class="btn btn--ghost btn--sm">导出</button>
+            <button class="btn btn--primary btn--sm" id="btnCreate">+ 新建</button>
+          </div>
+        </div>
+
+        <!-- 筛选栏 -->
+        <div class="card filter-bar">
+          <div class="filter-bar__item">
+            <input class="input" type="search" placeholder="搜索关键词…" id="listSearch">
+          </div>
+          <div class="filter-bar__item">
+            <select class="select">
+              <option>全部状态</option>
+              <option>已发布</option>
+              <option>草稿</option>
+              <option>待审核</option>
+            </select>
+          </div>
+          <div class="filter-bar__item">
+            <select class="select">
+              <option>最近 30 天</option>
+              <option>最近 7 天</option>
+              <option>本季度</option>
+            </select>
+          </div>
+          <button class="btn btn--primary btn--sm">查询</button>
+          <button class="btn btn--ghost btn--sm">重置</button>
+        </div>
+
+        <div class="card">
+          <div class="table-wrap">
+            <table class="table" id="listTable">
+              <thead>
+                <tr>
+                  <th style="width:44px"><input type="checkbox" aria-label="全选"></th>
+                  <th>名称</th>
+                  <th>分类</th>
+                  <th>状态</th>
+                  <th>创建人</th>
+                  <th>更新时间</th>
+                  <th class="ta-right">操作</th>
+                </tr>
+              </thead>
+              <tbody id="listRows"></tbody>
+            </table>
+          </div>
+
+          <!-- 分页 -->
+          <div class="pager">
+            <span class="pager__info">共 <b>128</b> 条 · 每页 10 条</span>
+            <div class="pager__ctrl">
+              <button disabled>上一页</button>
+              <button class="is-active">1</button>
+              <button>2</button>
+              <button>3</button>
+              <span>…</span>
+              <button>13</button>
+              <button>下一页</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 视图：表单页（占位） ============ -->
+      <section class="view" data-view="form" hidden>
+        <div class="page-head">
+          <div>
+            <h1 class="page-head__title" id="formTitle">编辑</h1>
+            <p class="page-head__desc">表单页占位，字段结构可按业务扩展。</p>
+          </div>
+        </div>
+
+        <form class="form-layout" id="editorForm">
+          <div class="card form-main">
+            <div class="card__head"><h2>基本信息</h2></div>
+            <div class="form-main__body">
+              <label class="field">
+                <span class="field__label">标题 <span class="req">*</span></span>
+                <input class="input" type="text" placeholder="请输入标题">
+              </label>
+
+              <label class="field">
+                <span class="field__label">摘要</span>
+                <textarea class="textarea" placeholder="一句话摘要，用于列表展示"></textarea>
+              </label>
+
+              <label class="field">
+                <span class="field__label">正文内容</span>
+                <div class="editor">
+                  <div class="editor__toolbar">
+                    <button type="button"><b>B</b></button>
+                    <button type="button"><i>I</i></button>
+                    <button type="button">H1</button>
+                    <button type="button">H2</button>
+                    <span class="editor__sep"></span>
+                    <button type="button">列表</button>
+                    <button type="button">链接</button>
+                    <button type="button">图片</button>
+                  </div>
+                  <div class="editor__area" contenteditable="true" data-placeholder="富文本编辑区占位，后续接入编辑器组件…"></div>
+                </div>
+                <span class="field__hint">占位编辑器，后续可替换为 UEditor / TinyMCE 等。</span>
+              </label>
+            </div>
+          </div>
+
+          <aside class="form-side">
+            <div class="card">
+              <div class="card__head"><h2>发布设置</h2></div>
+              <div class="form-side__body">
+                <label class="field">
+                  <span class="field__label">状态</span>
+                  <select class="select">
+                    <option>草稿</option>
+                    <option>已发布</option>
+                    <option>待审核</option>
+                  </select>
+                </label>
+                <label class="field">
+                  <span class="field__label">所属分类</span>
+                  <select class="select">
+                    <option>默认分类</option>
+                    <option>新闻动态</option>
+                    <option>项目案例</option>
+                  </select>
+                </label>
+                <label class="field">
+                  <span class="field__label">发布日期</span>
+                  <input class="input" type="datetime-local">
+                </label>
+                <label class="switch-row">
+                  <input type="checkbox" checked>
+                  <span>置顶到首页</span>
+                </label>
+                <label class="switch-row">
+                  <input type="checkbox">
+                  <span>允许评论</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card__head"><h2>封面图</h2></div>
+              <div class="form-side__body">
+                <div class="ph ph--16x9">封面图占位</div>
+                <div class="upload-row">
+                  <button type="button" class="btn btn--ghost btn--sm">上传图片</button>
+                  <button type="button" class="btn btn--ghost btn--sm">使用图库</button>
+                </div>
+              </div>
+            </div>
+          </aside>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn--ghost">取消</button>
+            <button type="button" class="btn btn--ghost">保存草稿</button>
+            <button type="submit" class="btn btn--primary">提交保存</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- ============ 视图：系统设置（占位） ============ -->
+      <section class="view" data-view="settings" hidden>
+        <div class="page-head">
+          <div>
+            <h1 class="page-head__title">系统设置</h1>
+            <p class="page-head__desc">站点基础配置占位。</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__head"><h2>基础信息</h2></div>
+          <div class="form-main__body">
+            <div class="grid grid--2">
+              <label class="field">
+                <span class="field__label">站点名称</span>
+                <input class="input" type="text" value="公司名称">
+              </label>
+              <label class="field">
+                <span class="field__label">站点域名</span>
+                <input class="input" type="text" value="https://www.example.com">
+              </label>
+              <label class="field">
+                <span class="field__label">服务热线</span>
+                <input class="input" type="text" value="400-000-0000">
+              </label>
+              <label class="field">
+                <span class="field__label">联系邮箱</span>
+                <input class="input" type="email" value="contact@example.com">
+              </label>
+            </div>
+            <label class="field">
+              <span class="field__label">站点描述</span>
+              <textarea class="textarea">站点 SEO 描述占位。</textarea>
+            </label>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__head"><h2>用户管理</h2></div>
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>用户</th><th>角色</th><th>状态</th><th>最后登录</th><th class="ta-right">操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>管理员</b><br><small>admin@example.com</small></td>
+                  <td><span class="badge badge--primary">超级管理员</span></td>
+                  <td><span class="badge badge--success">正常</span></td>
+                  <td>2026-10-15 09:12</td>
+                  <td class="ta-right"><button class="link-btn">编辑</button></td>
+                </tr>
+                <tr>
+                  <td><b>内容编辑</b><br><small>editor@example.com</small></td>
+                  <td><span class="badge">编辑</span></td>
+                  <td><span class="badge badge--success">正常</span></td>
+                  <td>2026-10-14 17:40</td>
+                  <td class="ta-right"><button class="link-btn">编辑</button></td>
+                </tr>
+                <tr>
+                  <td><b>运营专员</b><br><small>ops@example.com</small></td>
+                  <td><span class="badge">运营</span></td>
+                  <td><span class="badge badge--warning">已锁定</span></td>
+                  <td>2026-09-28 11:05</td>
+                  <td class="ta-right"><button class="link-btn">编辑</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="form-actions form-actions--sticky">
+          <button type="button" class="btn btn--primary">保存设置</button>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="adm-foot">
+      <span>管理后台占位模板 · 静态脚手架</span>
+      <span id="clock"></span>
+    </footer>
+  </div>
+
+</div>
+
+<!-- ============ 弹窗：新建内容（占位） ============ -->
+<div class="modal" id="modal" hidden>
+  <div class="modal__mask" data-close></div>
+  <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal__head">
+      <h2 id="modalTitle">新建内容</h2>
+      <button class="modal__close" data-close aria-label="关闭">✕</button>
+    </div>
+    <div class="modal__body">
+      <label class="field">
+        <span class="field__label">名称 <span class="req">*</span></span>
+        <input class="input" type="text" id="modalInput" placeholder="请输入名称">
+      </label>
+      <label class="field">
+        <span class="field__label">类型</span>
+        <select class="select">
+          <option>文章</option>
+          <option>案例</option>
+          <option>产品/服务</option>
+        </select>
+      </label>
+      <label class="field">
+        <span class="field__label">备注</span>
+        <textarea class="textarea" placeholder="选填"></textarea>
+      </label>
+    </div>
+    <div class="modal__foot">
+      <button class="btn btn--ghost btn--sm" data-close>取消</button>
+      <button class="btn btn--primary btn--sm" id="modalOk">确定</button>
+    </div>
+  </div>
+</div>
+
+<!-- 全局提示 -->
+<div class="toast" id="toast" hidden></div>
+
+<script src="js/admin.js"></script>
+</body>
+</html>

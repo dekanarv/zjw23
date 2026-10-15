@@ -1,0 +1,52 @@
+# ===== 依赖 / 包管理 =====
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ===== 构建产物 =====
+dist/
+build/
+.output/
+.cache/
+
+# ===== 环境变量 =====
+.env
+.env.local
+.env.*.local
+
+# ===== 日志 =====
+logs/
+*.log
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ===== 编辑器 / IDE =====
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+
+# ===== 系统文件 =====
+.DS_Store
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# ===== 临时文件 =====
+tmp/
+temp/
+*.tmp
+*.bak
+*.orig
+
+# ===== 图片占位（真实素材入库后可删除此条） =====
+# assets/img/*.placeholder
+
+# ===== 本地私密文件 =====
+*.key
+*.pem
+.env.local

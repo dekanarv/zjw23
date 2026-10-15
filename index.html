@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>公司官网 | 占位模板</title>
+  <meta name="description" content="公司官网主页占位模板，含导航、Hero、关于、业务、案例、新闻、联系等区块结构。">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+
+  <!-- ========== 全站顶部条 ========== -->
+  <div class="topbar">
+    <div class="container topbar__inner">
+      <span class="topbar__item">服务热线：400-000-0000</span>
+      <span class="topbar__item">邮箱：contact@example.com</span>
+      <div class="topbar__right">
+        <a href="#">简体中文</a>
+        <a href="admin/index.html" class="topbar__admin">后台管理</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== 导航 ========== -->
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <a href="#" class="brand">
+        <span class="brand__mark">LOGO</span>
+        <span class="brand__name">公司名称</span>
+      </a>
+
+      <nav class="nav" id="nav" aria-label="主导航">
+        <ul class="nav__list">
+          <li><a href="#home" class="nav__link is-active">首页</a></li>
+          <li><a href="#about" class="nav__link">关于我们</a></li>
+          <li><a href="#business" class="nav__link">业务领域</a></li>
+          <li><a href="#cases" class="nav__link">项目案例</a></li>
+          <li><a href="#news" class="nav__link">新闻动态</a></li>
+          <li><a href="#contact" class="nav__link">联系我们</a></li>
+        </ul>
+      </nav>
+
+      <a href="#contact" class="btn btn--primary btn--sm header__cta">获取报价</a>
+
+      <button class="nav-toggle" id="navToggle" aria-label="打开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ========== Hero 首屏 ========== -->
+    <section class="hero" id="home">
+      <div class="container hero__inner">
+        <div class="hero__copy">
+          <span class="hero__tag">占位标语 · 待调整</span>
+          <h1 class="hero__title">
+            以专业与效率<br>
+            为客户创造长期价值
+          </h1>
+          <p class="hero__desc">
+            此处为公司简介占位文本。后续可替换为实际业务定位、一句话价值主张，
+            以及 30–60 字左右的说明文案。建议控制在一到两行，保持视觉呼吸感。
+          </p>
+          <div class="hero__actions">
+            <a href="#contact" class="btn btn--primary">立即咨询</a>
+            <a href="#cases" class="btn btn--ghost">查看案例</a>
+          </div>
+          <ul class="hero__stats">
+            <li><b data-count="10">0</b><span>年行业经验</span></li>
+            <li><b data-count="200">0</b><span>服务客户</span></li>
+            <li><b data-count="50">0</b><span>覆盖城市</span></li>
+          </ul>
+        </div>
+
+        <div class="hero__visual">
+          <div class="ph ph--4x3">主视觉图片占位 1200×900</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 关于我们 ========== -->
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-head__eyebrow">ABOUT US</span>
+          <h2 class="section-head__title">关于我们</h2>
+          <p class="section-head__desc">
+            区块说明文字占位。建议 2–3 句话讲清公司定位、成立背景与核心差异点。
+          </p>
+        </div>
+
+        <div class="about">
+          <div class="about__media">
+            <div class="ph ph--1x1">公司形象图占位</div>
+          </div>
+          <div class="about__body">
+            <h3 class="about__title">我们做的事</h3>
+            <p class="about__text">
+              占位段落。介绍公司的核心业务、团队构成、服务能力与交付方式。
+              此处可插入 3–4 条要点列表，突出资质、经验与保障能力。
+            </p>
+            <ul class="about__points">
+              <li>
+                <span class="about__point-title">专业团队</span>
+                <span>核心成员具备多年行业经验与项目落地能力。</span>
+              </li>
+              <li>
+                <span class="about__point-title">标准化交付</span>
+                <span>从方案到执行，全流程可控、可追溯。</span>
+              </li>
+              <li>
+                <span class="about__point-title">长期服务</span>
+                <span>交付不是终点，持续陪伴客户共同成长。</span>
+              </li>
+            </ul>
+            <a href="#" class="about__more">了解更多 →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 业务领域 ========== -->
+    <section class="section section--soft" id="business">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-head__eyebrow">BUSINESS</span>
+          <h2 class="section-head__title">业务领域</h2>
+          <p class="section-head__desc">按业务线划分的服务能力占位说明。</p>
+        </div>
+
+        <div class="grid grid--4">
+          <article class="card card--hover biz">
+            <div class="ph ph--16x9">业务图标占位</div>
+            <h3 class="biz__title">业务一</h3>
+            <p class="biz__desc">简要描述该业务线的服务范围与客户价值。</p>
+          </article>
+          <article class="card card--hover biz">
+            <div class="ph ph--16x9">业务图标占位</div>
+            <h3 class="biz__title">业务二</h3>
+            <p class="biz__desc">简要描述该业务线的服务范围与客户价值。</p>
+          </article>
+          <article class="card card--hover biz">
+            <div class="ph ph--16x9">业务图标占位</div>
+            <h3 class="biz__title">业务三</h3>
+            <p class="biz__desc">简要描述该业务线的服务范围与客户价值。</p>
+          </article>
+          <article class="card card--hover biz">
+            <div class="ph ph--16x9">业务图标占位</div>
+            <h3 class="biz__title">业务四</h3>
+            <p class="biz__desc">简要描述该业务线的服务范围与客户价值。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 核心优势 ========== -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-head__eyebrow">ADVANTAGE</span>
+          <h2 class="section-head__title">为什么选择我们</h2>
+          <p class="section-head__desc">用 3–4 个要点说明差异化优势。</p>
+        </div>
+
+        <ol class="feature">
+          <li class="feature__item reveal">
+            <span class="feature__num">01</span>
+            <h3>优势标题占位</h3>
+            <p>用一到两句话说明该优势的具体表现，避免空泛表述。</p>
+          </li>
+          <li class="feature__item reveal">
+            <span class="feature__num">02</span>
+            <h3>优势标题占位</h3>
+            <p>用一到两句话说明该优势的具体表现，避免空泛表述。</p>
+          </li>
+          <li class="feature__item reveal">
+            <span class="feature__num">03</span>
+            <h3>优势标题占位</h3>
+            <p>用一到两句话说明该优势的具体表现，避免空泛表述。</p>
+          </li>
+          <li class="feature__item reveal">
+            <span class="feature__num">04</span>
+            <h3>优势标题占位</h3>
+            <p>用一到两句话说明该优势的具体表现，避免空泛表述。</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ========== 项目案例 ========== -->
+    <section class="section section--soft" id="cases">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-head__eyebrow">CASES</span>
+          <h2 class="section-head__title">项目案例</h2>
+          <p class="section-head__desc">精选案例占位，后续接入真实项目数据。</p>
+        </div>
+
+        <div class="grid grid--3">
+          <article class="card card--hover case">
+            <div class="ph ph--4x3">案例图占位</div>
+            <div class="case__body">
+              <span class="badge badge--primary">行业类别</span>
+              <h3 class="case__title">项目名称占位</h3>
+              <p class="case__meta">地点 · 年份</p>
+              <p class="case__desc">项目背景与成果的简要说明。</p>
+            </div>
+          </article>
+          <article class="card card--hover case">
+            <div class="ph ph--4x3">案例图占位</div>
+            <div class="case__body">
+              <span class="badge badge--primary">行业类别</span>
+              <h3 class="case__title">项目名称占位</h3>
+              <p class="case__meta">地点 · 年份</p>
+              <p class="case__desc">项目背景与成果的简要说明。</p>
+            </div>
+          </article>
+          <article class="card card--hover case">
+            <div class="ph ph--4x3">案例图占位</div>
+            <div class="case__body">
+              <span class="badge badge--primary">行业类别</span>
+              <h3 class="case__title">项目名称占位</h3>
+              <p class="case__meta">地点 · 年份</p>
+              <p class="case__desc">项目背景与成果的简要说明。</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="text-center" style="margin-top: var(--sp-7);">
+          <a href="#" class="btn btn--ghost">查看全部案例</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 数字统计 ========== -->
+    <section class="section section--dark">
+      <div class="container">
+        <div class="stats">
+          <div class="stats__item">
+            <b class="stats__num" data-count="300">0</b>
+            <span class="stats__label">累计交付项目</span>
+          </div>
+          <div class="stats__item">
+            <b class="stats__num" data-count="98">0</b>
+            <span class="stats__label">客户满意度 %</span>
+          </div>
+          <div class="stats__item">
+            <b class="stats__num" data-count="24">0</b>
+            <span class="stats__label">全天候响应</span>
+          </div>
+          <div class="stats__item">
+            <b class="stats__num" data-count="15">0</b>
+            <span class="stats__label">行业资质认证</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 新闻动态 ========== -->
+    <section class="section" id="news">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-head__eyebrow">NEWS</span>
+          <h2 class="section-head__title">新闻动态</h2>
+          <p class="section-head__desc">公司新闻与行业观察占位。</p>
+        </div>
+
+        <div class="grid grid--3">
+          <article class="card card--hover news">
+            <div class="news__date"><b>15</b><span>2026.10</span></div>
+            <div class="news__body">
+              <h3 class="news__title">新闻标题占位</h3>
+              <p class="news__desc">新闻摘要占位，一到两句话概括要点。</p>
+            </div>
+          </article>
+          <article class="card card--hover news">
+            <div class="news__date"><b>08</b><span>2026.09</span></div>
+            <div class="news__body">
+              <h3 class="news__title">新闻标题占位</h3>
+              <p class="news__desc">新闻摘要占位，一到两句话概括要点。</p>
+            </div>
+          </article>
+          <article class="card card--hover news">
+            <div class="news__date"><b>22</b><span>2026.08</span></div>
+            <div class="news__body">
+              <h3 class="news__title">新闻标题占位</h3>
+              <p class="news__desc">新闻摘要占位，一到两句话概括要点。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 联系我们 / CTA ========== -->
+    <section class="section contact" id="contact">
+      <div class="container contact__inner">
+
+        <div class="contact__info">
+          <span class="section-head__eyebrow">CONTACT</span>
+          <h2 class="contact__title">联系我们</h2>
+          <p class="contact__desc">
+            填写右侧表单，或直接致电。我们会在 1 个工作日内与您联系。
+          </p>
+
+          <ul class="contact__list">
+            <li>
+              <span class="contact__label">地址</span>
+              <span class="contact__value">省 / 市 / 区 详细地址占位</span>
+            </li>
+            <li>
+              <span class="contact__label">电话</span>
+              <span class="contact__value">400-000-0000</span>
+            </li>
+            <li>
+              <span class="contact__label">邮箱</span>
+              <span class="contact__value">contact@example.com</span>
+            </li>
+            <li>
+              <span class="contact__label">工作时间</span>
+              <span class="contact__value">周一至周五 9:00 – 18:00</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 占位表单：暂不提交到后端 -->
+        <form class="card contact__form" id="contactForm" novalidate>
+          <h3 class="contact__form-title">在线咨询</h3>
+
+          <div class="grid grid--2">
+            <label class="field">
+              <span class="field__label">姓名 <span class="req">*</span></span>
+              <input class="input" type="text" name="name" placeholder="请输入您的姓名" required>
+            </label>
+            <label class="field">
+              <span class="field__label">联系电话 <span class="req">*</span></span>
+              <input class="input" type="tel" name="phone" placeholder="请输入手机号" required>
+            </label>
+          </div>
+
+          <label class="field">
+            <span class="field__label">公司名称</span>
+            <input class="input" type="text" name="company" placeholder="选填">
+          </label>
+
+          <label class="field">
+            <span class="field__label">咨询内容 <span class="req">*</span></span>
+            <select class="select" name="topic" required>
+              <option value="">请选择咨询类型</option>
+              <option>产品咨询</option>
+              <option>方案报价</option>
+              <option>售后服务</option>
+              <option>商务合作</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span class="field__label">留言描述</span>
+            <textarea class="textarea" name="message" placeholder="请简要描述您的需求"></textarea>
+            <span class="field__hint">占位表单，暂未接入后端接口。</span>
+          </label>
+
+          <button type="submit" class="btn btn--primary btn--block">提交信息</button>
+          <p class="form-msg" id="formMsg" hidden></p>
+        </form>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========== 页脚 ========== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__top">
+
+        <div class="footer__brand">
+          <a href="#" class="brand brand--footer">
+            <span class="brand__mark">LOGO</span>
+            <span class="brand__name">公司名称</span>
+          </a>
+          <p class="footer__slogan">公司一句话定位占位。</p>
+        </div>
+
+        <nav class="footer__nav" aria-label="页脚导航">
+          <div class="footer__col">
+            <h4>关于我们</h4>
+            <ul>
+              <li><a href="#about">公司简介</a></li>
+              <li><a href="#">发展历程</a></li>
+              <li><a href="#">资质荣誉</a></li>
+            </ul>
+          </div>
+          <div class="footer__col">
+            <h4>业务领域</h4>
+            <ul>
+              <li><a href="#business">业务一</a></li>
+              <li><a href="#business">业务二</a></li>
+              <li><a href="#business">业务三</a></li>
+            </ul>
+          </div>
+          <div class="footer__col">
+            <h4>支持</h4>
+            <ul>
+              <li><a href="#news">新闻动态</a></li>
+              <li><a href="#contact">联系我们</a></li>
+              <li><a href="admin/index.html">后台管理</a></li>
+            </ul>
+          </div>
+        </nav>
+
+        <div class="footer__contact">
+          <h4>联系方式</h4>
+          <ul>
+            <li>电话：400-000-0000</li>
+            <li>邮箱：contact@example.com</li>
+            <li>地址：详细地址占位</li>
+          </ul>
+          <div class="footer__qr">
+            <div class="ph ph--1x1">公众号二维码</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer__bottom">
+        <span>© 2026 公司名称 版权所有 · 备案号占位</span>
+        <span class="footer__links">
+          <a href="#">隐私政策</a>
+          <a href="#">服务条款</a>
+          <a href="#">网站地图</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-top" id="backTop" aria-label="返回顶部">↑</button>
+
+  <script src="assets/js/site.js"></script>
+</body>
+</html>
