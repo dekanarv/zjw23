@@ -97,6 +97,10 @@
   display: block;
   height: 42px;
   width: auto;
+  max-width: 190px;
+  /* 加固：即使样式表加载延迟，也不会显示成原始巨幅 */
+  aspect-ratio: 1580 / 457;
+  object-fit: contain;
 }
 
 /* 无图片时的兜底（保留结构，图片加载失败不塌版） */
