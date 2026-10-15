@@ -1,19 +1,56 @@
 # HTTPS 证书问题与解决方案
 
-> 状态：GitHub Pages 证书签发受阻，**推荐改用 Cloudflare**
-> 更新时间：2026-10-15 15:40
+> ✅ **状态：已解决。Cloudflare 代理已生效，HTTPS 证书签发成功。**
+> 访问地址：**https://kanerg.com**（绿锁正常）
+> 更新时间：2026-10-15 16:00
 
 ---
 
-## 一、问题诊断
+## ✅ 最终结果
+
+```
+HTTPS 访问 : https://kanerg.com  → 200
+证书 CN    : kanerg.com
+SAN        : *.kanerg.com, kanerg.com
+签发方     : Let's Encrypt (YE1)
+有效期     : 2026-10-15 ~ 2027-01-13（自动续期）
+服务器     : cloudflare（CF-RAY 已确认经过）
+```
+
+浏览器"不安全"提示已消除。
+
+### 实测记录
+
+```bash
+curl -sI https://kanerg.com/ | grep -iE "server|cf-ray"
+# Server: cloudflare
+# CF-RAY: a4ad48cbcd46fdbf-SIN      ← 确认经 Cloudflare
+
+openssl s_client -connect kanerg.com:443 -servername kanerg.com </dev/null \
+  | openssl x509 -noout -subject -issuer -dates
+# subject = CN=kanerg.com
+# issuer  = Let's Encrypt (YE1)
+```
+
+### GitHub 侧配置（保持不变，勿动）
+
+| 项目 | 值 | 说明 |
+|---|---|---|
+| CNAME 文件 | `kanerg.com` | 不变 |
+| Enforce HTTPS | **False** | ⚠️ 必须保持关闭，否则死循环 |
+| GitHub 自身证书 | 未签发 | 无关紧要，已由 Cloudflare 接管 |
+
+---
+
+## 历史：问题诊断（已解决，保留备查）
 
 ### 现象
 
 访问 `https://kanerg.com` 时浏览器提示"不安全"，无法通过验证。
 
-### 根因（已用官方接口确认）
+### 根因（GitHub 官方接口确认）
 
-GitHub Pages 官方health 接口返回：
+GitHub Pages 官方 health 接口返回：
 
 ```
 dns_resolves     : false
@@ -23,16 +60,11 @@ https_error      : peer_failed_verification
 is_https_eligible: false
 ```
 
-443 端口当前返回的证书是：
+443 端口当时返回的证书是 `CN=*.github.io`（Let's Encrypt 签发），
+**不含 kanerg.com** → 浏览器报域名不匹配。
 
-```
-subject = CN=*.github.io        ← 不含 kanerg.com
-issuer  = Let's Encrypt (YR1)
-dates   = 2026-09-30 ~ 2026-12-29
-```
-
-**这不是配置错误**。DNS 记录本身正确（本地 curl `http://kanerg.com/` 返回 200），
-是 GitHub 的服务器解析不到该域名，导致 ACME 校验失败、证书无法签发。
+**这不是配置错误**。DNS 记录本身正确，是 GitHub 的服务器解析不到该域名，
+导致 ACME 校验失败、证书无法签发。
 
 ### 为什么值得换方案
 
@@ -46,8 +78,6 @@ dates   = 2026-09-30 ~ 2026-12-29
 
 共同特征：DNS 配置完全正确、无 CAA 限制、反复解绑重绑无效。
 **所有最终解决的案例都迁到了 Netlify / Vercel / Cloudflare Pages。**
-
-> 官方文档也说明：Enforce HTTPS 选项最长需要 24 小时才可用。
 
 ---
 
@@ -175,7 +205,7 @@ Cloudflare 免费版没有中国大陆节点，且**无法备案**。
 
 ## 五、方案对比
 
-| 维度 | 继续等GitHub | Cloudflare |
+| 维度 | 继续等 GitHub | Cloudflare |
 |---|---|---|
 | 生效时间 | 不可控（数小时~ 数天） | 约 15 分钟~ 2 小时 |
 | 可靠性 | 依赖 GitHub 队列 | 独立于 GitHub |
@@ -185,4 +215,41 @@ Cloudflare 免费版没有中国大陆节点，且**无法备案**。
 | 国内访问速度 | 一般 | 通常更快 |
 | 成本 | 免费 | 免费 |
 
-**结论：Cloudflare 免费版在速度、可靠性和防护上都优于现状，值得采用。**
+**结论：Cloudflare 免费版在速度、可靠性和防护上都优于现状，已采用。**
+
+---
+
+## 六、当前待办
+
+| 项目 | 状态 | 说明 |
+|---|---|---|
+| HTTPS 证书 | ✅ 已完成 | `CN=kanerg.com`，绿锁正常 |
+| HTTP → HTTPS 跳转 | ⏳ 待确认 | Cloudflare 侧开启「Always Use HTTPS」 |
+| www 子域 | ⏳ 待配置 | Cloudflare 加 `www` CNAME → `dekanarv.github.io` |
+
+### 建议操作
+
+**1. 开启强制 HTTPS**（消除 HTTP 明文访问）
+
+Cloudflare → SSL/TLS → Edge Certificates → 打开 **Always Use HTTPS**
+
+**2. 配置 www**（可选）
+
+Cloudflare → DNS → 添加记录：
+
+| 类型 | 名称 | 内容 | 代理 |
+|---|---|---|---|
+| CNAME | `www` | `dekanarv.github.io` | 🟠 已代理 |
+
+**3. 验证命令**
+
+```bash
+# 检查是否经过 Cloudflare
+curl -sI https://kanerg.com/ | grep -i "cf-ray"
+
+# 检查证书
+openssl s_client -connect kanerg.com:443 -servername kanerg.com </dev/null \
+  | openssl x509 -noout -subject -dates
+```
+
+> **注意**：本机使用代理（127.0.0.1:7890），测试时加 `--noproxy '*'` 才能拿到真实响应。
