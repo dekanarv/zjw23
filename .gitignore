@@ -54,3 +54,6 @@ temp/
 
 # WorkBuddy 本地数据（记忆、会话等）
 .workbuddy/
+
+# 临时存放的 GitHub 令牌（用完即删）
+.gh_token
