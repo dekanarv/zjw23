@@ -51,3 +51,6 @@ temp/
 *.pem
 .env.local<!-- 预览截图临时目录 -->
 .preview/
+
+# WorkBuddy 本地数据（记忆、会话等）
+.workbuddy/
