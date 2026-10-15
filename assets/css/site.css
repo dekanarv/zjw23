@@ -92,14 +92,22 @@
   flex-shrink: 0;
 }
 
+/* 真实 logo 图片（橙黄凤凰 + 中文字） */
+.brand__logo {
+  display: block;
+  height: 42px;
+  width: auto;
+}
+
+/* 无图片时的兜底（保留结构，图片加载失败不塌版） */
 .brand__mark {
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   width: 38px;
   height: 38px;
   border-radius: var(--r-md);
-  background: linear-gradient(135deg, var(--c-primary), #3d8ef7);
+  background: linear-gradient(135deg, var(--c-accent), var(--c-primary));
   color: #fff;
   font-size: 11px;
   font-weight: 700;
@@ -246,8 +254,8 @@
   position: relative;
   padding: var(--sp-9) 0;
   background:
-    radial-gradient(900px 400px at 88% 8%, rgba(22, 104, 220, 0.1), transparent 65%),
-    radial-gradient(700px 380px at 5% 95%, rgba(245, 166, 35, 0.08), transparent 60%),
+    radial-gradient(900px 400px at 88% 8%, rgba(240, 160, 0, 0.14), transparent 65%),
+    radial-gradient(700px 380px at 5% 95%, rgba(224, 112, 16, 0.10), transparent 60%),
     var(--c-bg-soft);
   overflow: hidden;
 }
@@ -696,6 +704,12 @@
 
 .brand--footer {
   margin-bottom: var(--sp-4);
+}
+
+/* 页脚为深色底，logo 需提亮并缩小 */
+.brand--footer .brand__logo {
+  height: 36px;
+  filter: brightness(1.32) saturate(1.06);
 }
 
 .brand--footer .brand__name {

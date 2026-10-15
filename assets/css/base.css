@@ -5,30 +5,33 @@
 
 :root {
   /* ---- 品牌色 ---- */
-  --c-primary: #1668dc;
-  --c-primary-hover: #0f52b3;
-  --c-primary-light: #e8f1fd;
-  --c-accent: #f5a623;
+  /* ---- 品牌色（取自公司 logo「嘉能恒业」橙黄渐变） ---- */
+  --c-primary: #e07010;            /* 主橙·取自 logo 主体 */
+  --c-primary-hover: #c25a08;      /* 深橙·悬停态 */
+  --c-primary-light: #fdf1e3;      /* 浅橙·背景块 */
+  --c-accent: #f0a000;             /* 金黄·取自 logo 高光 */
+  --c-accent-soft: #fef6e6;        /* 浅金·渐变过渡 */
+  --c-primary-dark: #a84608;       /* 橙红·深色调 */
 
-  /* ---- 中性色 ---- */
+  /* ---- 中性色（带暖调，与橙黄品牌色协调） ---- */
   --c-bg: #ffffff;
-  --c-bg-soft: #f6f8fa;
-  --c-bg-dark: #1a1f2b;
+  --c-bg-soft: #fbf8f4;            /* 暖白·替代原冷灰 */
+  --c-bg-dark: #241a12;            /* 深棕·替代原深蓝灰 */
   --c-surface: #ffffff;
 
-  --c-text: #1f2430;
-  --c-text-soft: #5a6274;
-  --c-text-mute: #8b93a5;
+  --c-text: #2a2118;               /* 暖黑 */
+  --c-text-soft: #6b5d4f;
+  --c-text-mute: #9c8f80;
   --c-text-invert: #ffffff;
 
-  --c-border: #e3e7ee;
-  --c-border-strong: #cbd2de;
+  --c-border: #eee6dd;
+  --c-border-strong: #dbcfbf;
 
   /* ---- 语义色 ---- */
-  --c-success: #17a673;
-  --c-warning: #e8a33d;
-  --c-danger: #d94b4b;
-  --c-info: #3aa7d8;
+  --c-success: #1a9e6c;
+  --c-warning: #f0a000;
+  --c-danger: #d94b3a;
+  --c-info: #3a9fd8;
 
   /* ---- 间距 / 圆角 / 阴影 ---- */
   --sp-1: 4px;
@@ -46,9 +49,9 @@
   --r-lg: 14px;
   --r-pill: 999px;
 
-  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.06);
-  --shadow-md: 0 4px 12px rgba(16, 24, 40, 0.08);
-  --shadow-lg: 0 12px 32px rgba(16, 24, 40, 0.12);
+  --shadow-sm: 0 1px 2px rgba(90, 55, 20, 0.06);
+  --shadow-md: 0 4px 14px rgba(140, 80, 20, 0.10);
+  --shadow-lg: 0 12px 34px rgba(140, 80, 20, 0.14);
 
   /* ---- 字体 ---- */
   --font-sans: "Segoe UI", "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB",
@@ -403,7 +406,7 @@ table {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #eef2f7 0%, #e2e8f0 100%);
+  background: linear-gradient(135deg, #fdf3e8 0%, #f7e6d4 100%);
   color: var(--c-text-mute);
   font-size: 13px;
   letter-spacing: 0.03em;
