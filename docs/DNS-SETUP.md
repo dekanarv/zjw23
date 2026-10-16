@@ -5,221 +5,114 @@
 
 ---
 
-## 一、当前状态
+## ✅ 当前状态（已修复）
 
 ```
-kanerg.com         已配置 → Cloudflare 橙云代理 ✅（正常使用中）
-www.kanerg.com     DNS 记录已添加且指向 Cloudflare，但访问仍报 403
-CNAME 文件         保持 kanerg.com（**先不要改**）
+https://kanerg.com/          200                主域名
+https://www.kanerg.com/      301 → kanerg.com   自动跳转，最终 200
+证书CN=kanerg.com，SAN 含 *.kanerg.com
+CNAME 文件                   kanerg.com（裸域为主，www 跳转过来）
 ```
 
 ---
 
-## 排查结论
+## 历史记录：403 的根因
 
-已用多源交叉验证（Google / Cloudflare / 腾讯三家 DoH）：
-
-```
-kanerg.com      → 104.21.77.60, 172.67.204.218   ✅ Cloudflare
-www.kanerg.com  → 104.21.77.60, 172.67.204.218   ✅ Cloudflare
-NS 委派         → arely/randy.ns.cloudflare.com  ✅ Cloudflare
-```
-
-**DNS 层完全正确**，与裸域一致。所以 403 不是 DNS 问题。
-
----
-
-## ⚠️ 403 的原因：记录指向了 Cloudflare 自己的 IP
-
-访问 <https://www.kanerg.com> 返回：
+`https://www.kanerg.com` 曾返回：
 
 ```
 403 Forbidden
 DNS points to prohibited IP | www.kanerg.com | Cloudflare
 ```
 
-这是 Cloudflare 的 **Error 1000**。官方文档列出的首要原因是：
-
-> A 记录指向了 Cloudflare 的 IP 地址
-
-**问题在于：如果你在添加 www 记录时，参考的是解析出来的 IP
-（`104.21.x.x` / `172.67.x.x`），就等于让域名指向 Cloudflare 自己 —— 会形成循环。**
-
-正确的原始值应该是 GitHub Pages 的 IP：
-
-```
-185.199.108.153
-185.199.109.153
-185.199.110.153
-185.199.111.153
-```
-
-### 已确认的根本原因（通过导出 DNS 记录发现）
-
-Cloudflare 导出的原始记录暴露了问题：
+这是 Cloudflare 的 **Error 1000**。导出 DNS 记录后定位到原因：
 
 ```
 kanerg.com.     → 185.199.108~111.153           ✅ GitHub Pages 的 IP
 www.kanerg.com. → 172.67.204.218 / 104.21.77.60 ❌ Cloudflare 自己的 IP
 ```
 
-**www 的记录填成了 Cloudflare 的 IP**，等于让域名指向 Cloudflare 自己，
-形成循环 → Cloudflare 返回 Error 1000（prohibited IP）。
+**www 的记录误填了 Cloudflare 自身的 IP**，等于让域名指向 Cloudflare 自己，
+形成自我引用 → Cloudflare 拒绝服务。
 
-这也解释了为什么裸域正常而 www 报错：
-**裸域填的是 GitHub 的 IP（正确），www 填的是 Cloudflare 的 IP（错误）。**
+删除 www 下指向 Cloudflare 自身 IP 的记录，只保留 GitHub 的四条后立即恢复。
 
-### 修复方法
+### IP 地址速查
 
-把 www 的记录改成与裸域一致，IP 用 GitHub Pages 的：
+| IP 段 | 归属 | 能否填入 A 记录 |
+|---|---|---|
+| `185.199.108~111.153` | GitHub Pages | ✅ 可以 |
+| `104.21.x.x` | Cloudflare | ❌ Error 1000 |
+| `172.67.x.x` | Cloudflare | ❌ Error 1000 |
 
-```
-185.199.108.153
-185.199.109.153
-185.199.110.153
-185.199.111.153
-```
-
-**关键**：`185.199.x.x` 是 GitHub Pages 的 IP（正确），
-`104.21.x.x` / `172.67.x.x` 是 Cloudflare 的 IP（填了会报错）。
-
-Cloudflare 控制台 → DNS → Records →
-删除所有 www 记录，按上表重新添加 4 条，云朵选橙色。
-
-改完后打开 <https://www.kanerg.com> 验证，告诉我结果我再切 CNAME。
+> **关键**：Cloudflare 会把记录自动展开成自己的边缘 IP。
+> **不要**把「解析出来的结果」拿去当 A 记录的值填 ——
+> 要填**源站的原始 IP**（本项目即 GitHub Pages 的四个 IP）。
 
 ---
 
-## ⚠️ 切换 CNAME 的顺序（重要）
+## ⚠️ 导入 DNS 文件的注意事项
 
-**必须先确认 www 能正常打开，再改 CNAME。**
+**Cloudflare 的导入是「追加」而非「替换」。**
 
-实测踩过两次这个坑：CNAME 先改成 www后，
-裸域会 301 到 www，而 www 当时是 403 → **整站不可访问**。
+导入前必须先在控制台删除要替换的记录，否则新旧混杂。
+本项目踩过这个坑：导入 4 条正确记录后，旧的 2 条错误记录仍在，403 持续存在。
 
-正确顺序：
+建议流程：
 
-1. Cloudflare 把 www 切成**橙云**（并清理重复记录）
-2. 打开 <https://www.kanerg.com> 确认能正常显示
-3. 把仓库 CNAME 改成 `www.kanerg.com`
-4. 验证裸域 301 到 www，且两者都可访问
+1. 先导出当前配置存档
+2. 在 Records 页面**手工删除**要替换的记录
+3. 再导入修改后的文件
+4. 验证：`nslookup 域名 1.1.1.1`
 
 ---
 
-## 二、需要你添加的记录
+## 关于切换 CNAME
 
-**入口**：<https://dash.cloudflare.com/> → kanerg.com → DNS → Records → Add record
+**当前配置（裸域为主 + www 跳转）已经可用，无需改动。**
 
-### 2.1 www 的 A 记录（4 条）
+若将来想改主域名，务必：
 
-照抄裸域的 IP，**代理状态全部选橙色云朵**（Proxied）：
+1. 先确认目标域名能返回 **200**（不是 403，也不是 DNS 解析正确）
+2. 再改仓库 CNAME
+3. 验证原域名 301 到新域名，两者都可访问
+
+⚠️ 实测踩过两次：CNAME 先改、目标域名还不可用 → **整站中断**。
+
+---
+
+## 参考配置（备用）
+
+以下为配置时用的参考值，正常情况下**不需要重复添加**。
+
+### www 的 A 记录
 
 | 类型 | 名称 | IPv4 地址 | 代理状态 | TTL |
 |---|---|---|---|---|
-| A | `www` | `104.21.77.60` | 🟠 Proxied | Auto |
-| A | `www` | `172.67.204.218` | 🟠 Proxied | Auto |
+| A | `www` | `185.199.108.153` | 🟠 Proxied | Auto |
+| A | `www` | `185.199.109.153` | 🟠 Proxied | Auto |
+| A | `www` | `185.199.110.153` | 🟠 Proxied | Auto |
+| A | `www` | `185.199.111.153` | 🟠 Proxied | Auto |
 
-> **说明**：Cloudflare 免费版会自动在边缘展开，
-> 表面只需 2 条 A 记录即可，无需像在阿里云那样加 4 条。
-> 若你想与裸域完全一致，加4 条（含 `104.21.78.60`、`172.67.205.218`）也能正常工作。
-
-### 2.2 如需 IPv6（可选，建议加）
+### IPv6（可选）
 
 | 类型 | 名称 | IPv6 地址 | 代理状态 |
 |---|---|---|---|
-| AAAA | `www` | `2606:4700:3033::ac43:ccda` | 🟠 Proxied |
+| AAAA | `@` | `2606:4700:3036::6815:4d3c` | 🟠 Proxied |
+| AAAA | `@` | `2606:4700:3033::ac43:ccda` | 🟠 Proxied |
 | AAAA | `www` | `2606:4700:3036::6815:4d3c` | 🟠 Proxied |
-
-> 不加也能用，Cloudflare 会自动处理。
+| AAAA | `www` | `2606:4700:3033::ac43:ccda` | 🟠 Proxied |
 
 ---
 
-## 三、一次加齐的建议配置
-
-下面是「以后不会麻烦」的完整清单，按需添加：
-
-| 类型 | 名称 | 内容 | 代理 | 用途 |
-|---|---|---|---|---|
-| A | `@` | `104.21.77.60` | 🟠 |裸域（已有） |
-| A | `@` | `172.67.204.218` | 🟠 | 裸域（已有） |
-| A | `www` | `104.21.77.60` | 🟠 | **本次要加** |
-| A | `www` | `172.67.204.218` | 🟠 | **本次要加** |
-| AAAA | `@` | `2606:4700:3033::ac43:ccda` | 🟠 | 裸域 IPv6（已有） |
-| AAAA | `@` | `2606:4700:3036::6815:4d3c` | 🟠 | 裸域 IPv6（已有） |
-| AAAA | `www` | 同上两条 | 🟠 | **建议加** |
-| CNAME | `@` | `dekanarv.github.io` | ⚪灰云 | 邮件路由备用，**先别加** |
-
-### 暂时不要加的
+## 不要添加的记录
 
 | 类型 | 名称 | 原因 |
 |---|---|---|
-| MX | `@` | 用Cloudflare Email Routing 代替，功能更简单 |
-| TXT | `@` | SPF/DKIM 等邮件记录，域名邮箱未启用时不需要 |
-| CNAME | `blog` / `shop` 等 | 暂时没有对应站点，等需要时再加 |
+| MX | `@` | 用 Cloudflare Email Routing 代替 |
+| TXT | `@` | 域名邮箱未启用，SPF/DKIM 暂不需要 |
+| CNAME | `blog` / `shop` 等 | 暂无对应站点，等需要时再加 |
 
 > **原则**：不加用不到的记录。DNS 记录越多，日后排查越困难。
 
 ---
-
-## 四、加完后的验证
-
-DNS 生效通常需要 5 ~ 30 分钟（Cloudflare 通常几秒就到）。
-
-### 4.1 查解析
-
-```bash
-nslookup www.kanerg.com 1.1.1.1
-```
-
-应返回 `104.21.x.x` 或 `172.67.x.x`。
-
-### 4.2 查访问（DNS 生效后）
-
-```
-https://kanerg.com     →  正常显示官网（当前状态）
-https://www.kanerg.com →  也能正常显示
-```
-
-此时 CNAME 仍是 `kanerg.com`，两个地址各自独立可达。
-
-确认 www 可用后，再决定是否切换主域名。
-
-### 4.3 查证书
-
-```bash
-openssl s_client -connect www.kanerg.com:443 -servername www.kanerg.com </dev/null \
-  | openssl x509 -noout -subject
-```
-
-应显示 `CN=www.kanerg.com` 或包含 `*.kanerg.com`。
-
----
-
-## 五、⚠️ 注意事项
-
-### 不要开Enforce HTTPS
-
-GitHub Pages 设置里的 **Enforce HTTPS 保持关闭**。
-Cloudflare 已负责 HTTPS，两边都开会造成跳转死循环。
-
-### 不要改代理状态
-
-`www` 的记录必须选 **橙色云朵（Proxied）**。
-若误选灰色云朵，流量会绕过 Cloudflare，HTTPS 证书就失效了。
-
-### DNS 生效前的过渡
-
-在你加记录前，`www.kanerg.com` 会短暂不可用，
-但**裸域 `kanerg.com` 仍正常**——因为 Cloudflare 上还有旧的解析缓存。
-
----
-
-## 六、备案后要改的地方（以后再说）
-
-若未来完成 ICP 备案并接入国内 CDN，届时需要：
-
-1. 在 Cloudflare 把 `@` 和 `www` 的记录**改成灰色云朵**（仅 DNS）
-2. 在国内 CDN 平台配置加速域名
-3. 用智能解析按线路分流
-
-**当前阶段不需要考虑这些**，先把网站内容做好。
