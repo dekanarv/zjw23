@@ -8,36 +8,63 @@
 ## 一、当前状态
 
 ```
-kanerg.com         已配置 → Cloudflare（172.67.204.218 / 104.21.77.60）✅
-www.kanerg.com     未配置 → NXDOMAIN（需你补）
-CNAME 文件         保持 kanerg.com（**不要提前改，见下方警告**）
+kanerg.com         已配置 → Cloudflare 橙云代理 ✅（正常使用中）
+www.kanerg.com     已添加记录，但当前报403
+CNAME 文件         保持 kanerg.com（**先不要改**）
 ```
 
 ---
 
-## ⚠️ 关键警告：必须先配 DNS，再改 CNAME
+## ⚠️ www 当前报 403 的原因
 
-我已实测验证过这个坑：
-
-**如果先把 CNAME 改成 `www.kanerg.com`，而 www 的 DNS 还没配好，会导致整站不可访问。**
+添加 www 记录后访问 <https://www.kanerg.com> 返回：
 
 ```
-浏览器访问 kanerg.com
-  → GitHub Pages 认为主域名是 www
-  → 301 跳转到 www.kanerg.com
-  → 但 www 的 DNS 没配，解析失败
-  → 整站打不开 ❌
+403 Forbidden
+DNS points to prohibited IP | www.kanerg.com | Cloudflare
 ```
 
-**正确顺序**：
+**原因：Cloudflare 提示"域名指向了被禁止的 IP"** —— 这说明
+**www 的记录当前是「仅 DNS」（灰色云朵）模式，不是「已代理」（橙色云朵）**。
 
-1. **先**在 Cloudflare 加好 www 的 DNS 记录
-2. **等** DNS 生效（`nslookup www.kanerg.com` 能返回 IP）
-3. **再**把仓库 CNAME 改成 `www.kanerg.com`
-4. **最后**验证两个地址都能访问
+灰云模式下 Cloudflare 只做DNS 解析，不代理流量，
+因此它检测到 DNS 指向自己的 IP 时会认为这是非法配置并拒绝。
 
-目前 CNAME 保持 `kanerg.com` 不动，网站可正常访问。
-等你 DNS 配好告诉我，我再帮你切换并验证。
+### 解决方法
+
+进入 Cloudflare 控制台 → kanerg.com → DNS → Records，
+找到主机记录为 `www` 的那几条：
+
+```
+当前：仅 DNS（灰云）        需要：已代理（橙云）
+    ⬜ ← 灰色云朵              🟧 ← 橙色云朵
+```
+
+**点击每条记录旁边的云朵图标，从灰色切换为橙色。**
+
+| 类型 | 名称 | IPv4 地址 | 需要的代理状态 |
+|---|---|---|---|
+| A | `www` | `104.21.77.60` | 🟠 Proxied |
+| A | `www` | `172.67.204.218` | 🟠 Proxied |
+
+改完后告诉我，我帮你验证并把 CNAME 切换到 www。
+
+---
+
+## ⚠️ 切换 CNAME 的顺序（重要）
+
+**必须先确认 www 能正常访问，再改 CNAME。**
+
+我实测踩过这个坑：CNAME 先改成 www 后，
+GitHub Pages 会把裸域 301 跳转到 www，
+而此时 www 还是 403 状态 → **整站不可访问**。
+
+正确顺序：
+
+1. 在 Cloudflare 把 www 改成**橙云代理**
+2. 验证 <https://www.kanerg.com> 能正常显示（不是 403）
+3. 把仓库 CNAME 改成 `www.kanerg.com`
+4. 验证裸域会 301 到 www，且两者都能访问
 
 ---
 
