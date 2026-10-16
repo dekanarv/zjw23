@@ -29,7 +29,7 @@ NS 委派         → arely/randy.ns.cloudflare.com  ✅ Cloudflare
 
 ---
 
-## ⚠️ 403 的真实原因
+## ⚠️ 403 的原因：记录指向了 Cloudflare 自己的 IP
 
 访问 <https://www.kanerg.com> 返回：
 
@@ -38,25 +38,55 @@ NS 委派         → arely/randy.ns.cloudflare.com  ✅ Cloudflare
 DNS points to prohibited IP | www.kanerg.com | Cloudflare
 ```
 
-**DNS 已正确指向 Cloudflare，但仍报 prohibited IP ——
-这说明 www 那几条记录在 Cloudflare 控制台的状态不是「已代理」。**
+这是 Cloudflare 的 **Error 1000**。官方文档列出的首要原因是：
 
-即使显示的IP 是 Cloudflare 的，只要记录本身是灰云，
-Cloudflare 仍会认为「这个域名指向了我的 IP 但没开启代理」，因而拒绝。
+> A 记录指向了 Cloudflare 的 IP 地址
 
-### 解决方法
+**问题在于：如果你在添加 www 记录时，参考的是解析出来的 IP
+（`104.21.x.x` / `172.67.x.x`），就等于让域名指向 Cloudflare 自己 —— 会形成循环。**
 
-Cloudflare 控制台 → kanerg.com → DNS → Records → 找到主机记录为 `www` 的几条：
+正确的原始值应该是 GitHub Pages 的 IP：
 
 ```
-问题：仅 DNS（灰云）        需要：已代理（橙云）
-      ⬜ ← 灰色云朵              🟧 ← 橙色云朵
+185.199.108.153
+185.199.109.153
+185.199.110.153
+185.199.111.153
 ```
 
-**点击每条记录右侧的云朵图标，切换为橙色。**
+### 已确认的根本原因（通过导出 DNS 记录发现）
 
-⚠️ 也检查一下有没有**重复的 www 记录** ——
-若有灰云和橙云各一份，删掉灰云那几条。重复记录会造成冲突。
+Cloudflare 导出的原始记录暴露了问题：
+
+```
+kanerg.com.     → 185.199.108~111.153           ✅ GitHub Pages 的 IP
+www.kanerg.com. → 172.67.204.218 / 104.21.77.60 ❌ Cloudflare 自己的 IP
+```
+
+**www 的记录填成了 Cloudflare 的 IP**，等于让域名指向 Cloudflare 自己，
+形成循环 → Cloudflare 返回 Error 1000（prohibited IP）。
+
+这也解释了为什么裸域正常而 www 报错：
+**裸域填的是 GitHub 的 IP（正确），www 填的是 Cloudflare 的 IP（错误）。**
+
+### 修复方法
+
+把 www 的记录改成与裸域一致，IP 用 GitHub Pages 的：
+
+```
+185.199.108.153
+185.199.109.153
+185.199.110.153
+185.199.111.153
+```
+
+**关键**：`185.199.x.x` 是 GitHub Pages 的 IP（正确），
+`104.21.x.x` / `172.67.x.x` 是 Cloudflare 的 IP（填了会报错）。
+
+Cloudflare 控制台 → DNS → Records →
+删除所有 www 记录，按上表重新添加 4 条，云朵选橙色。
+
+改完后打开 <https://www.kanerg.com> 验证，告诉我结果我再切 CNAME。
 
 ---
 
