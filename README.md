@@ -131,6 +131,7 @@ GitHub Pages 对静态资源缓存 4 小时、HTML 只缓存 10 分钟，
 | [HTTPS-GUIDE.md](docs/HTTPS-GUIDE.md) | HTTPS 与证书配置 |
 | [CN-ACCESS-STRATEGY.md](docs/CN-ACCESS-STRATEGY.md) | 国内外访问方案 |
 | [TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) | 常见故障排查 |
+| [VSCODE-WORKFLOW.md](docs/VSCODE-WORKFLOW.md) | **VS Code 手动更新指南** |
 
 ---
 
