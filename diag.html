@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>诊断工具 · 嘉能恒业</title>
+  <link rel="icon" href="/assets/img/favicon.svg?v=20261016" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/css/base.css?v=20261016">
+  <style>
+    body {
+      min-height: 100vh;
+      margin: 0;
+      padding: var(--sp-6) var(--sp-5) var(--sp-8);
+      background: var(--c-bg-soft);
+      font-family: var(--font-sans, system-ui, sans-serif);
+      color: var(--c-text);
+    }
+    .wrap { max-width: 780px; margin: 0 auto; }
+    .head { text-align: center; margin-bottom: var(--sp-6); }
+    .head img { height: 46px; width: auto; }
+    h1 { font-size: 24px; margin: var(--sp-4) 0 var(--sp-2); }
+    .sub { font-size: 14px; color: var(--c-text-soft); line-height: 1.8; }
+
+    .gate {
+      background: var(--c-surface);
+      border: 2px solid var(--c-primary-light);
+      border-radius: var(--r-lg);
+      padding: var(--sp-7) var(--sp-6);
+      text-align: center;
+      box-shadow: var(--shadow-md);
+    }
+    .gate__icon {
+      width: 60px; height: 60px; margin: 0 auto var(--sp-4);
+      border-radius: 50%;
+      background: var(--c-primary-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px;
+    }
+    .gate__title { font-size: 19px; font-weight: 700; margin-bottom: var(--sp-3); }
+    .gate__desc { font-size: 14px; color: var(--c-text-soft); line-height: 1.9; margin-bottom: var(--sp-5); }
+    .gate__why {
+      text-align: left; background: var(--c-bg-soft);
+      border-radius: var(--r-md); padding: var(--sp-4);
+      font-size: 13px; color: var(--c-text-soft); line-height: 1.9;
+      margin-bottom: var(--sp-5);
+    }
+    .gate__why strong { color: var(--c-text); }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 34px; border: none; border-radius: var(--r-pill);
+      background: linear-gradient(135deg, var(--c-accent), var(--c-primary));
+      color: #fff; font-size: 15px; font-weight: 500; cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: transform .18s, box-shadow .18s;
+    }
+    .btn:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .btn:disabled { opacity: .55; cursor: wait; transform: none; }
+    .btn--ghost {
+      background: transparent; color: var(--c-text-soft);
+      border: 1px solid var(--c-border-strong); margin-left: 10px;
+    }
+
+    .panel { display: none; }
+    .panel.on { display: block; }
+    .card {
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-lg);
+      padding: var(--sp-5); margin-bottom: var(--sp-4);
+      box-shadow: var(--shadow-sm);
+    }
+    .card h2 { font-size: 16px; margin: 0 0 var(--sp-4); }
+    .row {
+      display: flex; justify-content: space-between; gap: var(--sp-4);
+      padding: 10px 0; border-bottom: 1px dashed var(--c-border);
+      font-size: 13px; line-height: 1.7;
+    }
+    .row:last-child { border-bottom: none; }
+    .row__k { color: var(--c-text-soft); flex-shrink: 0; }
+    .row__v { font-family: var(--font-mono, monospace); text-align: right; word-break: break-all; }
+    .tag { padding: 2px 9px; border-radius: var(--r-pill); font-size: 12px; font-weight: 500; }
+    .tag--ok { background: #E1F5EE; color: #085041; }
+    .tag--warn { background: #FAEEDA; color: #633806; }
+    .tag--err { background: #FCEBEB; color: #791F1F; }
+    .hint { font-size: 12px; color: var(--c-text-mute); line-height: 1.8; margin-top: var(--sp-3); }
+    .back { display: inline-block; margin-top: var(--sp-4); color: var(--c-primary); text-decoration: none; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <img src="/assets/img/logo.png" alt="嘉能恒业" width="155" height="45">
+      <h1>域名诊断工具</h1>
+      <p class="sub">用于排查 kanerg.com 与 www.kanerg.com 的访问问题</p>
+    </div>
+
+    <!-- 入口：需要点击才开始 -->
+    <div class="gate" id="gate">
+      <div class="gate__icon">⚙</div>
+      <div class="gate__title">需要你点击开始</div>
+      <p class="gate__desc">
+        浏览器出于安全策略，不允许网页自动读取本机网络信息。<br>
+        点击下方按钮后，会通过你的网络向公共 DNS 查询两个域名的解析结果。
+      </p>
+      <div class="gate__why">
+        <strong>为什么需要点？</strong><br>
+        · 解析结果由你的浏览器发起请求，浏览器必须先获得许可<br>
+        · 不会读取任何个人数据，不上传文件<br>
+        · 查的是公共 DNS 缓存，与你的设备无关
+      </div>
+      <button class="btn" id="go">开始诊断</button>
+    </div>
+
+    <!-- 结果面板 -->
+    <div class="panel" id="panel">
+      <div class="card">
+        <h2>当前访问的地址</h2>
+        <div class="row"><span class="row__k">你打开的网址</span><span class="row__v" id="r-url">检测中…</span></div>
+        <div class="row"><span class="row__k">协议</span><span class="row__v" id="r-proto">—</span></div>
+        <div class="row"><span class="row__k">HTTPS 证书</span><span class="row__v" id="r-cert">—</span></div>
+        <div class="row"><span class="row__k">当前访问结果</span><span class="row__v" id="r-self">—</span></div>
+        <p class="hint" id="r-selfhint"></p>
+      </div>
+
+      <div class="card">
+        <h2>DNS 解析结果</h2>
+        <div class="row"><span class="row__k">kanerg.com</span><span class="row__v" id="r-apex">查询中…</span></div>
+        <div class="row"><span class="row__k">www.kanerg.com</span><span class="row__v" id="r-www">查询中…</span></div>
+        <p class="hint">
+          Cloudflare 正常工作时，这两个域名应解析到 <code>104.21.x.x</code> 或 <code>172.67.x.x</code>。<br>
+          若看到 <code>185.199.x.x</code>，说明是 GitHub Pages 的IP，说明该记录未开启橙云代理。
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>结论与建议</h2>
+        <div id="r-conclusion" style="font-size:14px;line-height:2;color:var(--c-text-soft)">
+          分析中…
+        </div>
+      </div>
+
+      <button class="btn btn--ghost" onclick="location.reload()">重新检测</button>
+      <a class="back" href="/">← 返回首页</a>
+    </div>
+  </div>
+
+  <script>
+    const $ = id => document.getElementById(id);
+
+    function cls(el, state) {
+      el.innerHTML = '<span class="tag tag--' + state + '">' +
+        { ok: '正常', warn: '注意', err: '异常' }[state] + '</span>';
+    }
+
+    // 通过公共 DoH 查询 A 记录
+    async function dnsQuery(name) {
+      const urls = [
+        'https://dns.google/resolve?name=' + name + '&type=A',
+        'https://cloudflare-dns.com/dns-query?name=' + name + '&type=A'
+      ];
+      for (const u of urls) {
+        try {
+          const r = await fetch(u, { headers: { accept: 'application/dns-json' } });
+          const j = await r.json();
+          const ips = (j.Answer || []).filter(a => a.type === 1).map(a => a.data);
+          if (ips.length) return ips;
+        } catch (e) { /* 换下一个 */ }
+      }
+      return [];
+    }
+
+    function judge(ips) {
+      if (!ips.length) return { state: 'err', text: '无解析记录' };
+      const gh = ips.filter(i => i.startsWith('185.199'));
+      const cf = ips.filter(i => i.startsWith('104.21') || i.startsWith('172.67'));
+      if (cf.length) return { state: 'ok', text: cf.join(', ') };
+      if (gh.length) return { state: 'warn', text: gh.join(', '), gh: true };
+      return { state: 'warn', text: ips.join(', ') };
+    }
+
+    async function run() {
+      $('go').disabled = true;
+      $('go').textContent = '检测中…';
+
+      // 本机信息
+      $('r-url').textContent = location.host || '(无法读取)';
+      $('r-proto').textContent = location.protocol;
+      $('r-self').innerHTML = '检测中…';
+
+      const apex = await dnsQuery('kanerg.com');
+      const www = await dnsQuery('www.kanerg.com');
+
+      const a = judge(apex), w = judge(www);
+      $('r-apex').innerHTML = a.text + ' ' + cls(document.createElement('span'), a.state);
+      $('r-www').innerHTML = w.text + ' ' + cls(document.createElement('span'), w.state);
+
+      // 自身可访问性
+      let selfOk = false;
+      try {
+        const resp = await fetch(location.href, { method: 'HEAD' });
+        selfOk = resp.ok;
+        $('r-self').innerHTML = 'HTTP ' + resp.status + ' ' +
+          (resp.ok ? '<span class="tag tag--ok">正常</span>' : '<span class="tag tag--err">异常</span>');
+      } catch (e) {
+        $('r-self').innerHTML = '<span class="tag tag--err">请求失败</span>';
+      }
+      $('r-cert').textContent = selfOk ? '已建立（本页能打开即证书有效）' : '未知';
+
+      // 结论
+      const lines = [];
+      if (a.state === 'ok' && w.state === 'ok') {
+        lines.push('<strong style="color:var(--c-text)">DNS 层面正常。</strong>');
+        lines.push('两个域名都已走 Cloudflare 代理。如果 www 仍打不开，问题在 Cloudflare 控制台的记录状态（可能未开启橙云代理）。');
+        if (!selfOk) {
+          lines.push('');
+          lines.push('你当前打开的页面未能正常加载 —— 若这是 www 域名，请回到 Cloudflare 检查 www 记录的云朵是否为<strong>橙色</strong>。');
+        }
+      } else if (w.gh || w.state === 'err') {
+        lines.push('<strong style="color:var(--c-text)">www 的 DNS 记录有问题。</strong>');
+        lines.push('若显示 185.199.x.x，是 GitHub Pages 的地址，说明该记录没开橙云代理 ——');
+        lines.push('请到 Cloudflare → DNS → Records，把主机记录 www 的云朵点成<strong>橙色</strong>。');
+        lines.push('若显示"无解析记录"，说明记录还没添加。');
+      } else {
+        lines.push('<strong style="color:var(--c-text)">部分解析异常，</strong>请对照上方结果检查 Cloudflare 控制台。');
+      }
+      $('r-conclusion').innerHTML = lines.join('<br>');
+
+      $('gate').style.display = 'none';
+      $('panel').classList.add('on');
+    }
+
+    $('go').addEventListener('click', run);
+  </script>
+</body>
+</html>
