@@ -63,4 +63,4 @@ temp/
 # 页面模板（仅本地参考，不参与部署）
 src/
 # Cloudflare DNS 导出文件（运维用，不入库）
-kanerg.com.txt
+kanerg.com*.txt
