@@ -43,13 +43,12 @@ temp/
 *.bak
 *.orig
 
-# ===== 图片占位（真实素材入库后可删除此条） =====
-# assets/img/*.placeholder
-
 # ===== 本地私密文件 =====
 *.key
 *.pem
-.env.local<!-- 预览截图临时目录 -->
+
+# ===== 本项目专用 =====
+#预览截图临时目录
 .preview/
 
 # WorkBuddy 本地数据（记忆、会话等）
@@ -58,5 +57,8 @@ temp/
 # 临时存放的 GitHub 令牌（用完即删）
 .gh_token
 
-# 原始素材（已复制到 assets/img/，不入库）
-111.png
+# 原始 logo 素材（副本在 assets/img/logo.png）
+/111.png
+
+# 页面模板（仅本地参考，不参与部署）
+src/
