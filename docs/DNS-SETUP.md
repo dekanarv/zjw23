@@ -15,16 +15,14 @@ CNAME 文件         保持 kanerg.com（**先不要改**）
 
 ---
 
-## 🛠️ 先用诊断工具确认
+## 排查结论
 
-访问 **<https://kanerg.com/diag.html>** → 点「开始诊断」
-
-它会显示两个域名的解析结果和结论。已用多源交叉验证（Google / Cloudflare / 腾讯）：
+已用多源交叉验证（Google / Cloudflare / 腾讯三家 DoH）：
 
 ```
 kanerg.com      → 104.21.77.60, 172.67.204.218   ✅ Cloudflare
 www.kanerg.com  → 104.21.77.60, 172.67.204.218   ✅ Cloudflare
-NS 委派→ arely/randy.ns.cloudflare.com   ✅ Cloudflare
+NS 委派         → arely/randy.ns.cloudflare.com  ✅ Cloudflare
 ```
 
 **DNS 层完全正确**，与裸域一致。所以 403 不是 DNS 问题。
