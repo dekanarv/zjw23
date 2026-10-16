@@ -9,62 +9,72 @@
 
 ```
 kanerg.com         已配置 → Cloudflare 橙云代理 ✅（正常使用中）
-www.kanerg.com     已添加记录，但当前报403
+www.kanerg.com     DNS 记录已添加且指向 Cloudflare，但访问仍报 403
 CNAME 文件         保持 kanerg.com（**先不要改**）
 ```
 
 ---
 
-## ⚠️ www 当前报 403 的原因
+## 🛠️ 先用诊断工具确认
 
-添加 www 记录后访问 <https://www.kanerg.com> 返回：
+访问 **<https://kanerg.com/diag.html>** → 点「开始诊断」
+
+它会显示两个域名的解析结果和结论。已用多源交叉验证（Google / Cloudflare / 腾讯）：
+
+```
+kanerg.com      → 104.21.77.60, 172.67.204.218   ✅ Cloudflare
+www.kanerg.com  → 104.21.77.60, 172.67.204.218   ✅ Cloudflare
+NS 委派→ arely/randy.ns.cloudflare.com   ✅ Cloudflare
+```
+
+**DNS 层完全正确**，与裸域一致。所以 403 不是 DNS 问题。
+
+---
+
+## ⚠️ 403 的真实原因
+
+访问 <https://www.kanerg.com> 返回：
 
 ```
 403 Forbidden
 DNS points to prohibited IP | www.kanerg.com | Cloudflare
 ```
 
-**原因：Cloudflare 提示"域名指向了被禁止的 IP"** —— 这说明
-**www 的记录当前是「仅 DNS」（灰色云朵）模式，不是「已代理」（橙色云朵）**。
+**DNS 已正确指向 Cloudflare，但仍报 prohibited IP ——
+这说明 www 那几条记录在 Cloudflare 控制台的状态不是「已代理」。**
 
-灰云模式下 Cloudflare 只做DNS 解析，不代理流量，
-因此它检测到 DNS 指向自己的 IP 时会认为这是非法配置并拒绝。
+即使显示的IP 是 Cloudflare 的，只要记录本身是灰云，
+Cloudflare 仍会认为「这个域名指向了我的 IP 但没开启代理」，因而拒绝。
 
 ### 解决方法
 
-进入 Cloudflare 控制台 → kanerg.com → DNS → Records，
-找到主机记录为 `www` 的那几条：
+Cloudflare 控制台 → kanerg.com → DNS → Records → 找到主机记录为 `www` 的几条：
 
 ```
-当前：仅 DNS（灰云）        需要：已代理（橙云）
-    ⬜ ← 灰色云朵              🟧 ← 橙色云朵
+问题：仅 DNS（灰云）        需要：已代理（橙云）
+      ⬜ ← 灰色云朵              🟧 ← 橙色云朵
 ```
 
-**点击每条记录旁边的云朵图标，从灰色切换为橙色。**
+**点击每条记录右侧的云朵图标，切换为橙色。**
 
-| 类型 | 名称 | IPv4 地址 | 需要的代理状态 |
-|---|---|---|---|
-| A | `www` | `104.21.77.60` | 🟠 Proxied |
-| A | `www` | `172.67.204.218` | 🟠 Proxied |
-
-改完后告诉我，我帮你验证并把 CNAME 切换到 www。
+⚠️ 也检查一下有没有**重复的 www 记录** ——
+若有灰云和橙云各一份，删掉灰云那几条。重复记录会造成冲突。
 
 ---
 
 ## ⚠️ 切换 CNAME 的顺序（重要）
 
-**必须先确认 www 能正常访问，再改 CNAME。**
+**必须先确认 www 能正常打开，再改 CNAME。**
 
-我实测踩过这个坑：CNAME 先改成 www 后，
-GitHub Pages 会把裸域 301 跳转到 www，
-而此时 www 还是 403 状态 → **整站不可访问**。
+实测踩过两次这个坑：CNAME 先改成 www后，
+裸域会 301 到 www，而 www 当时是 403 → **整站不可访问**。
 
 正确顺序：
 
-1. 在 Cloudflare 把 www 改成**橙云代理**
-2. 验证 <https://www.kanerg.com> 能正常显示（不是 403）
+1. Cloudflare 把 www 切成**橙云**（并清理重复记录）
+2. 打开 <https://www.kanerg.com> 确认能正常显示
 3. 把仓库 CNAME 改成 `www.kanerg.com`
-4. 验证裸域会 301 到 www，且两者都能访问
+4. 验证裸域 301 到 www，且两者都可访问
 
 ---
 
