@@ -1020,3 +1020,75 @@
   }
   .timeline__item::before { left: 0; }
 }
+
+/* ========== 技术能力（深色区块） ========== */
+.capability {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-6);
+}
+.capability__item {
+  padding-left: var(--sp-4);
+  border-left: 3px solid var(--c-primary);
+}
+.capability__title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 var(--sp-3);
+  color: #fff;
+}
+.capability__desc {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.9;
+  color: rgba(255, 255, 255, .74);
+}
+@media (max-width: 860px) {
+  .capability { grid-template-columns: 1fr; gap: var(--sp-5); }
+}
+
+/* ========== 案例结果清单 ========== */
+.case__result {
+  list-style: none;
+  margin: var(--sp-4) 0 0;
+  padding: var(--sp-4) 0 0;
+  border-top: 1px dashed var(--c-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.case__result li {
+  font-size: 13px;
+  color: var(--c-text-soft);
+  padding-left: var(--sp-4);
+  position: relative;
+  line-height: 1.7;
+}
+.case__result li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--c-primary);
+}
+.case__result b {
+  color: var(--c-primary-hover);
+  font-weight: 700;
+}
+.case__desc {
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--c-text-soft);
+  margin: var(--sp-2) 0 0;
+}
+
+/* ========== 数据带收窄为 4 列 ========== */
+.stats-band__inner {
+  grid-template-columns: repeat(4, 1fr);
+}
+@media (max-width: 760px) {
+  .stats-band__inner { grid-template-columns: repeat(2, 1fr); }
+}
