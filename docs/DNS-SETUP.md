@@ -8,10 +8,36 @@
 ## 一、当前状态
 
 ```
-kanerg.com         已配置 → Cloudflare（172.67.204.218 / 104.21.77.60）
+kanerg.com         已配置 → Cloudflare（172.67.204.218 / 104.21.77.60）✅
 www.kanerg.com     未配置 → NXDOMAIN（需你补）
-CNAME 文件         已改为 www.kanerg.com（等待 DNS 生效）
+CNAME 文件         保持 kanerg.com（**不要提前改，见下方警告**）
 ```
+
+---
+
+## ⚠️ 关键警告：必须先配 DNS，再改 CNAME
+
+我已实测验证过这个坑：
+
+**如果先把 CNAME 改成 `www.kanerg.com`，而 www 的 DNS 还没配好，会导致整站不可访问。**
+
+```
+浏览器访问 kanerg.com
+  → GitHub Pages 认为主域名是 www
+  → 301 跳转到 www.kanerg.com
+  → 但 www 的 DNS 没配，解析失败
+  → 整站打不开 ❌
+```
+
+**正确顺序**：
+
+1. **先**在 Cloudflare 加好 www 的 DNS 记录
+2. **等** DNS 生效（`nslookup www.kanerg.com` 能返回 IP）
+3. **再**把仓库 CNAME 改成 `www.kanerg.com`
+4. **最后**验证两个地址都能访问
+
+目前 CNAME 保持 `kanerg.com` 不动，网站可正常访问。
+等你 DNS 配好告诉我，我再帮你切换并验证。
 
 ---
 
@@ -82,15 +108,16 @@ nslookup www.kanerg.com 1.1.1.1
 
 应返回 `104.21.x.x` 或 `172.67.x.x`。
 
-### 4.2 查访问
+### 4.2 查访问（DNS 生效后）
 
 ```
-https://www.kanerg.com    →  应正常显示官网
-https://kanerg.com         →  会自动跳转到 www（因为 CNAME 改成了 www）
+https://kanerg.com     →  正常显示官网（当前状态）
+https://www.kanerg.com →  也能正常显示
 ```
 
-> 注意：CNAME 改为 www 后，**裸域会成为主域名**，访问裸域会 301 跳转到 www。
-> 这是标准行为，两个地址都能正常访问。
+此时 CNAME 仍是 `kanerg.com`，两个地址各自独立可达。
+
+确认 www 可用后，再决定是否切换主域名。
 
 ### 4.3 查证书
 
