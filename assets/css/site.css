@@ -1092,3 +1092,202 @@
 @media (max-width: 760px) {
   .stats-band__inner { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ========== EPC 方案卡 ========== */
+.epc {
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.epc__media {
+  background: linear-gradient(135deg, #fdf3e8 0%, #f7e6d4 100%);
+  border-bottom: 1px solid var(--c-border);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.epc__media--wide { aspect-ratio: 16 / 10; }
+.epc__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .35s ease;
+}
+.epc:hover .epc__media img { transform: scale(1.04); }
+.epc__body {
+  padding: var(--sp-4) var(--sp-5) var(--sp-5);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.epc__title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 var(--sp-3);
+  color: var(--c-text);
+}
+.epc__desc {
+  font-size: 13px;
+  line-height: 1.85;
+  color: var(--c-text-soft);
+  margin: 0 0 var(--sp-4);
+}
+.epc__specs {
+  list-style: none;
+  margin: auto 0 0;
+  padding: var(--sp-4) 0 0;
+  border-top: 1px dashed var(--c-border);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-2);
+}
+.epc__specs li { text-align: center; }
+.epc__specs b {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--c-primary-hover);
+  line-height: 1.4;
+}
+.epc__specs span {
+  display: block;
+  font-size: 11px;
+  color: var(--c-text-mute);
+  margin-top: 2px;
+}
+
+/* ========== 案例分隔线 ========== */
+.case__divider {
+  height: 1px;
+  background: var(--c-border);
+  margin: var(--sp-5) 0;
+}
+
+/* ========== 服务流程 ========== */
+.process {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--sp-4);
+  counter-reset: step;
+}
+.process__step {
+  position: relative;
+  padding: var(--sp-5) var(--sp-4) var(--sp-4);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-md);
+  text-align: center;
+  transition: transform .2s, box-shadow .2s, border-color .2s;
+}
+.process__step:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--c-primary-light);
+}
+.process__step::after {
+  content: '';
+  position: absolute;
+  right: calc(var(--sp-4) * -1);
+  top: 50%;
+  width: var(--sp-4);
+  height: 1px;
+  background: var(--c-border-strong);
+}
+.process__step:last-child::after { display: none; }
+.process__num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--c-accent), var(--c-primary));
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: var(--sp-3);
+}
+.process__title {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 var(--sp-2);
+  color: var(--c-text);
+}
+.process__desc {
+  font-size: 12px;
+  line-height: 1.75;
+  color: var(--c-text-soft);
+  margin: 0;
+}
+@media (max-width: 980px) {
+  .process { grid-template-columns: repeat(2, 1fr); }
+  .process__step::after { display: none; }
+}
+@media (max-width: 560px) {
+  .process { grid-template-columns: 1fr; }
+}
+
+/* ========== 配套设备（横排） ========== */
+.aux {
+  margin-top: var(--sp-6);
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: var(--sp-6);
+  align-items: center;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+  padding: var(--sp-5);
+  box-shadow: var(--shadow-sm);
+}
+.aux__media {
+  border-radius: var(--r-md);
+  overflow: hidden;
+  background: linear-gradient(135deg, #fdf3e8 0%, #f7e6d4 100%);
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.aux__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: var(--sp-3);
+}
+.aux__title {
+  font-size: 19px;
+  font-weight: 700;
+  margin: var(--sp-2) 0 var(--sp-3);
+  color: var(--c-text);
+}
+.aux__desc {
+  font-size: 14px;
+  line-height: 1.9;
+  color: var(--c-text-soft);
+  margin: 0 0 var(--sp-4);
+}
+.aux__points {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+.aux__points li {
+  font-size: 12px;
+  color: var(--c-primary-hover);
+  background: var(--c-primary-light);
+  padding: 4px 12px;
+  border-radius: var(--r-pill);
+}
+@media (max-width: 860px) {
+  .aux { grid-template-columns: 1fr; }
+  .aux__media { max-width: 380px; }
+}
