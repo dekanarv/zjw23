@@ -60,7 +60,8 @@ temp/
 # 原始 logo 素材（副本在 assets/img/logo.png）
 /111.png
 
-# 页面模板（仅本地参考，不参与部署）
+# 页面模板与本地工具（仅本地参考，不参与部署）
+.peek/
 src/
 # Cloudflare DNS 导出文件（运维用，不入库）
 kanerg.com*.txt
