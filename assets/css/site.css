@@ -1291,3 +1291,118 @@
   .aux { grid-template-columns: 1fr; }
   .aux__media { max-width: 380px; }
 }
+
+/* ============================================================
+   分页轮播（Carousel / Paged Carousel）
+   基于 CSS scroll-snap：原生支持触摸滑动，无 JS 也能用
+   ============================================================ */
+.carousel {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  gap: var(--sp-3);
+}
+.carousel__viewport {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;          /* Firefox */
+  -ms-overflow-style: none;       /* IE/Edge */
+}
+.carousel__viewport::-webkit-scrollbar { display: none; }  /* Chrome/Safari */
+.carousel__viewport:focus-visible {
+  outline: 2px solid var(--c-primary);
+  outline-offset: 4px;
+  border-radius: var(--r-md);
+}
+.carousel__page {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sp-4);
+  padding: 2px;                    /* 抵消卡片阴影被裁切 */
+}
+.carousel__page .biz { height: 100%; }
+
+/* 左右切换按钮 */
+.carousel__btn {
+  flex: 0 0 auto;
+  align-self: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid var(--c-border-strong);
+  background: var(--c-surface);
+  color: var(--c-text-soft);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .2s, color .2s, border-color .2s, transform .15s, opacity .2s;
+  box-shadow: var(--shadow-sm);
+}
+.carousel__btn svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.carousel__btn:hover:not(:disabled) {
+  background: var(--c-primary);
+  border-color: var(--c-primary);
+  color: #fff;
+  transform: scale(1.06);
+}
+.carousel__btn:disabled {
+  opacity: .3;
+  cursor: default;
+}
+.carousel__btn:focus-visible {
+  outline: 2px solid var(--c-primary);
+  outline-offset: 2px;
+}
+
+/* 响应式：窄屏时每页改为两列，页高增加但仍整页切换 */
+@media (max-width: 1080px) {
+  .carousel__page { grid-template-columns: repeat(2, 1fr); }
+  .carousel__btn { width: 36px; height: 36px; }
+}
+@media (max-width: 720px) {
+  /* 移动端：改为「一卡一屏」横向滑动。
+     display:contents 去掉「页」这层盒子，让卡片直接成为滚动容器的 flex 项，
+     避免页宽与卡片宽度互相撑开导致重叠。 */
+  .carousel__page { display: contents; scroll-snap-align: none; }
+  .carousel__viewport {
+    padding-inline: 7%;          /* 配合 center 吸附，保证首尾卡都能居中 */
+    gap: var(--sp-3);
+  }
+  .carousel__page .biz {
+    flex: 0 0 86%;
+    scroll-snap-align: center;
+  }
+  /* 末尾补一段空白，保证最后一张卡也能吸附到居中位置 */
+  .carousel__page:last-child .biz:last-child { margin-right: 44px; }
+  /* 页面高度只剩一张卡，按钮回到垂直居中即可始终可见 */
+  .carousel__btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 34px;
+    height: 34px;
+    background: rgba(255, 255, 255, .95);
+    backdrop-filter: blur(4px);
+  }
+  .carousel__btn:hover:not(:disabled) { transform: translateY(-50%) scale(1.06); }
+  .carousel__btn--prev { left: -4px; }
+  .carousel__btn--next { right: -4px; }
+}
