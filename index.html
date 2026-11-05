@@ -14,8 +14,8 @@
   <!-- ========== 全站顶部条 ========== -->
   <div class="topbar">
     <div class="container topbar__inner">
-      <span class="topbar__item">服务热线：028-8334 7568</span>
-      <span class="topbar__item">邮箱：13982031367@139.com</span>
+      <span class="topbar__item" data-i18n="topbar.hotline">服务热线：028-8334 7568</span>
+      <span class="topbar__item" data-i18n="topbar.mail">邮箱：13982031367@139.com</span>
       <div class="topbar__right">
         <a href="#">简体中文</a>
         <a href="admin/index.html" class="topbar__admin">后台管理</a>
@@ -33,17 +33,20 @@
 
       <nav class="nav" id="nav" aria-label="主导航">
         <ul class="nav__list">
-          <li><a href="#home" class="nav__link is-active">首页</a></li>
-          <li><a href="#about" class="nav__link">关于我们</a></li>
-          <li><a href="#business" class="nav__link">核心产品</a></li>
-          <li><a href="#epc" class="nav__link">EPC 方案</a></li>
-          <li><a href="#cases" class="nav__link">应用案例</a></li>
-          <li><a href="#news" class="nav__link">发展历程</a></li>
-          <li><a href="#contact" class="nav__link">联系我们</a></li>
+          <li><a href="#home" class="nav__link is-active"> data-i18n="nav.home"</a></li>
+          <li><a href="#about" class="nav__link"> data-i18n="nav.about"</a></li>
+          <li><a href="#business" class="nav__link"> data-i18n="nav.business"</a></li>
+          <li><a href="#epc" class="nav__link"> data-i18n="nav.epc"</a></li>
+          <li><a href="#cases" class="nav__link"> data-i18n="nav.cases"</a></li>
+          <li><a href="#news" class="nav__link"> data-i18n="nav.news"</a></li>
+          <li><a href="#contact" class="nav__link"> data-i18n="nav.contact"</a></li>
         </ul>
       </nav>
 
-      <a href="#contact" class="btn btn--primary btn--sm header__cta">获取报价</a>
+      <div class="header__actions">
+        <button class="lang-toggle" type="button" data-lang-toggle>EN</button>
+        <a href="#contact" class="btn btn--primary btn--sm header__cta" data-i18n="nav.cta">获取报价</a>
+      </div>
 
       <button class="nav-toggle" id="navToggle" aria-label="打开菜单" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -57,23 +60,23 @@
     <section class="hero" id="home">
       <div class="container hero__inner">
         <div class="hero__copy">
-          <span class="hero__tag">水泥生产线热工设备与系统</span>
-          <h1 class="hero__title">
+          <span class="hero__tag" data-i18n="hero.tag">水泥生产线热工设备与系统</span>
+          <h1 class="hero__title" data-i18n-html="hero.title">
             让资源创造<br>
             更大的价值
           </h1>
-          <p class="hero__desc">
+          <p class="hero__desc" data-i18n="hero.desc">
             专业从事水泥生产线热工设备与系统的研发、设计、制造，
             业务涵盖煤处理系统、窑炉及煅烧燃烧系统、节能改造与技术服务。
           </p>
           <div class="hero__actions">
-            <a href="#business" class="btn btn--primary">查看核心产品</a>
-            <a href="#cases" class="btn btn--ghost">实测节能数据</a>
+            <a href="#business" class="btn btn--primary" data-i18n="hero.action1">查看核心产品</a>
+            <a href="#cases" class="btn btn--ghost" data-i18n="hero.action2">实测节能数据</a>
           </div>
           <ul class="hero__stats">
             <li><b data-count="2011" data-suffix="">2011</b><span>公司创建</span></li>
-            <li><b data-count="13" data-suffix="">0</b><span>年行业深耕</span></li>
-            <li><b data-count="200" data-suffix="+">0</b><span>条水泥生产线</span></li>
+            <li><b data-count="13" data-suffix="">0</b><span data-i18n="hero.stat2">年行业深耕</span></li>
+            <li><b data-count="200" data-suffix="+">0</b><span data-i18n="hero.stat3">条水泥生产线</span></li>
           </ul>
         </div>
 
@@ -89,16 +92,16 @@
     <section class="stats-band" aria-label="市场覆盖">
       <div class="container stats-band__inner">
         <div class="stats-band__item">
-          <b>200<i>+</i></b><span>水泥生产线（条）</span>
+          <b>200<i>+</i></b><span data-i18n="band.stat1">水泥生产线（条）</span>
         </div>
         <div class="stats-band__item">
-          <b>20<i>+</i></b><span>覆盖省级行政区</span>
+          <b>20<i>+</i></b><span data-i18n="band.stat2">覆盖省级行政区</span>
         </div>
         <div class="stats-band__item">
-          <b>7</b><span>产品出口国家</span>
+          <b>7</b><span data-i18n="band.stat3">产品出口国家</span>
         </div>
         <div class="stats-band__item">
-          <b>10<i>+</i></b><span>服务水泥集团客户</span>
+          <b>10<i>+</i></b><span data-i18n="band.stat4">服务水泥集团客户</span>
         </div>
       </div>
     </section>
@@ -108,8 +111,8 @@
       <div class="container">
         <div class="section-head">
           <span class="section-head__eyebrow">ABOUT US</span>
-          <h2 class="section-head__title">关于嘉能恒业</h2>
-          <p class="section-head__desc">
+          <h2 class="section-head__title" data-i18n="about.title">关于嘉能恒业</h2>
+          <p class="section-head__desc" data-i18n="about.desc">
             成都嘉能恒业科技有限公司是一家位于中国四川省成都市的高新技术企业，
             创立于 2011 年，秉承「专心、专注、专业，铸就嘉能恒业」的理念，
             致力于让资源创造更大的价值。
@@ -123,27 +126,27 @@
                  style="width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;border-radius:var(--r-md)">
           </div>
           <div class="about__body">
-            <h3 class="about__title">EPC · 产品 · 服务 三位一体</h3>
-            <p class="about__text">
+            <h3 class="about__title" data-i18n="about.subtitle">EPC · 产品 · 服务 三位一体</h3>
+            <p class="about__text" data-i18n="about.text">
               我们的产品及项目解决方案已应用于中国及七个海外国家的众多水泥和其它项目，
               覆盖原煤及煤粉制备、SRF 燃料系统、废液协同处置、窑系统优化等环节，
               为客户提供从硬件到工艺的整体解决方案。
             </p>
             <ul class="about__points">
               <li>
-                <span class="about__point-title">EPC 工程</span>
-                <span>SRF 固体回收燃料系统、废液协同处理系统、窑系统（预热器、分解炉）优化。</span>
+                <span class="about__point-title" data-i18n="about.p1t">EPC 工程</span>
+                <span data-i18n="about.p1">SRF 固体回收燃料系统、废液协同处理系统、窑系统（预热器、分解炉）优化。</span>
               </li>
               <li>
-                <span class="about__point-title">硬件产品</span>
-                <span>窑头燃烧器、分解炉燃烧器、节能油枪系统、撒料箱、翻板阀。</span>
+                <span class="about__point-title" data-i18n="about.p2t">硬件产品</span>
+                <span data-i18n="about.p2">窑头燃烧器、分解炉燃烧器、节能油枪系统、撒料箱、翻板阀。</span>
               </li>
               <li>
-                <span class="about__point-title">技术服务</span>
-                <span>热工标定与审计，基于现场实测数据提出技术方案与建议。</span>
+                <span class="about__point-title" data-i18n="about.p3t">技术服务</span>
+                <span data-i18n="about.p3">热工标定与审计，基于现场实测数据提出技术方案与建议。</span>
               </li>
             </ul>
-            <a href="about.html" class="about__more">了解发展历程 →</a>
+            <a href="about.html" class="about__more" data-i18n="about.more">了解发展历程 →</a>
           </div>
         </div>
       </div>
@@ -154,8 +157,8 @@
       <div class="container">
         <div class="section-head">
           <span class="section-head__eyebrow">CORE PRODUCTS</span>
-          <h2 class="section-head__title">产品系列</h2>
-          <p class="section-head__desc">
+          <h2 class="section-head__title" data-i18n="biz.title">产品系列</h2>
+          <p class="section-head__desc" data-i18n="biz.desc">
             从窑头燃烧、分解炉燃烧、点火与预热器撒料，到下料锁风与窑头对位，
             各类装备均为自主研发设计与制造。
           </p>
@@ -177,7 +180,7 @@
                 </div>
                 <div class="biz__body">
                   <span class="biz__code">BF</span>
-                  <h3 class="biz__title">窑头燃烧器</h3>
+                  <h3 class="biz__title"><a href="product-burner.html" style="color:inherit;text-decoration:none"> data-i18n="bf.name"</a></h3>
                   <p class="biz__desc">
                     四通道结构：轴流风、旋流风、煤风、中心风各自独立可调，
                     可将火焰的长度、粗细与温度调整到最佳状态。
@@ -196,7 +199,7 @@
                 </div>
                 <div class="biz__body">
                   <span class="biz__code">BFC</span>
-                  <h3 class="biz__title">分解炉燃烧器</h3>
+                  <h3 class="biz__title"><a href="product-calciner.html" style="color:inherit;text-decoration:none"> data-i18n="bfc.name"</a></h3>
                   <p class="biz__desc">
                     强旋流单通道结构，以单通道实现双／三通道效果，
                     兼顾提高燃烧效率与降低氮氧化物两个目标。
@@ -215,7 +218,7 @@
                 </div>
                 <div class="biz__body">
                   <span class="biz__code">BOS</span>
-                  <h3 class="biz__title">油枪系统</h3>
+                  <h3 class="biz__title"><a href="product-oilgun.html" style="color:inherit;text-decoration:none"> data-i18n="bos.name"</a></h3>
                   <p class="biz__desc">
                     两级雾化：压缩空气在油内爆破完成初次雾化，柴油经喷口二次雾化，
                     液滴遇火焰瞬间气化，接近气化状态下燃烧。
@@ -234,7 +237,7 @@
                 </div>
                 <div class="biz__body">
                   <span class="biz__code">BS</span>
-                  <h3 class="biz__title">扩散式撒料箱</h3>
+                  <h3 class="biz__title"><a href="product-splashbox.html" style="color:inherit;text-decoration:none"> data-i18n="bs.name"</a></h3>
                   <p class="biz__desc">
                     按预热器结构定制，改善预分散与换热，三次风可开大、系统阻力低，
                     可在线更换撒料板。
@@ -339,8 +342,8 @@
       <div class="container">
         <div class="section-head">
           <span class="section-head__eyebrow">EPC SOLUTIONS</span>
-          <h2 class="section-head__title">EPC 解决方案</h2>
-          <p class="section-head__desc">
+          <h2 class="section-head__title" data-i18n="epc.title">EPC 解决方案</h2>
+          <p class="section-head__desc" data-i18n="epc.desc">
             不止供货设备，更提供从系统设计到投运验收的整体工程方案。
           </p>
         </div>
@@ -353,15 +356,15 @@
             </div>
             <div class="epc__body">
               <span class="biz__code">SRF</span>
-              <h3 class="epc__title">固体回收燃料系统</h3>
-              <p class="epc__desc">
+              <h3 class="epc__title" data-i18n="epc.srf.t">固体回收燃料系统</h3>
+              <p class="epc__desc" data-i18n="epc.srf.d">
                 SRF 碳排放较低，单位热值成本低于化石燃料。经破碎、除铁后送入
                 分解炉或窑头燃烧器燃烧，部分替代化石燃料。
               </p>
               <ul class="epc__specs">
-                <li><b>4000–6000</b><span>kcal/kg 热值</span></li>
-                <li><b>10–60%</b><span>化石燃料替代率</span></li>
-                <li><b>6–12</b><span>个月投资回收期</span></li>
+                <li><b>4000–6000</b><span data-i18n="epc.srf.s1l">kcal/kg 热值</span></li>
+                <li><b>10–60%</b><span data-i18n="epc.srf.s2l">化石燃料替代率</span></li>
+                <li><b>6–12</b><span data-i18n="epc.srf.s3l">个月投资回收期</span></li>
               </ul>
             </div>
           </article>
@@ -373,15 +376,15 @@
             </div>
             <div class="epc__body">
               <span class="biz__code">BW</span>
-              <h3 class="epc__title">废液协同处置</h3>
-              <p class="epc__desc">
+              <h3 class="epc__title" data-i18n="epc.bw.t">废液协同处置</h3>
+              <p class="epc__desc" data-i18n="epc.bw.d">
                 部分危险化学品废液具有毒性或挥发刺激性气体。利用分解炉或窑内高温环境，
                 将有害有机物分解为 CO₂ 和水，实现无害化处理。
               </p>
               <ul class="epc__specs">
-                <li><b>≥ 3</b><span>t/h 处理能力</span></li>
-                <li><b>≤ 50</b><span>μm 雾化粒径</span></li>
-                <li><b>0</b><span>火灾·爆炸·泄漏</span></li>
+                <li><b>≥ 3</b><span data-i18n="epc.bw.s1l">t/h 处理能力</span></li>
+                <li><b>≤ 50</b><span data-i18n="epc.bw.s2l">μm 雾化粒径</span></li>
+                <li><b>0</b><span data-i18n="epc.bw.s3l">火灾·爆炸·泄漏</span></li>
               </ul>
             </div>
           </article>
@@ -393,15 +396,15 @@
             </div>
             <div class="epc__body">
               <span class="biz__code">OPT</span>
-              <h3 class="epc__title">窑系统优化</h3>
-              <p class="epc__desc">
+              <h3 class="epc__title" data-i18n="epc.opt.t">窑系统优化</h3>
+              <p class="epc__desc" data-i18n="epc.opt.d">
                 以热工标定、现场勘察、图纸分析为依据，对分解炉、旋风筒、翻板阀、
                 撒料箱、烟道、烟室进行优化，先查清现状再确定改造方案。
               </p>
               <ul class="epc__specs">
-                <li><b>01</b><span>现场诊断</span></li>
-                <li><b>02</b><span>方案设计</span></li>
-                <li><b>03</b><span>实施与复标</span></li>
+                <li><b>01</b><span data-i18n="epc.opt.s1l">现场诊断</span></li>
+                <li><b>02</b><span data-i18n="epc.opt.s2l">方案设计</span></li>
+                <li><b>03</b><span data-i18n="epc.opt.s3l">实施与复标</span></li>
               </ul>
             </div>
           </article>
@@ -415,18 +418,18 @@
           </div>
           <div class="aux__body">
             <span class="biz__code">OPT</span>
-            <h3 class="aux__title">改造不是换设备，是重排系统</h3>
-            <p class="aux__desc">
+            <h3 class="aux__title" data-i18n="aux.title">改造不是换设备，是重排系统</h3>
+            <p class="aux__desc" data-i18n="aux.desc">
               分解炉与预热器的改造，往往不落在某一台设备上。
               总风量如何确定、旋风筒改造如何兼顾分离效率与阻力、
               撒料箱的形式与物料分散如何配合、分解炉燃烧与换热脱硝的矛盾如何化解 ——
               这些问题需要放在同一个系统里同时求解。
             </p>
             <ul class="aux__points">
-              <li>总风量的确定</li>
-              <li>翻板阀作用的再认识</li>
-              <li>大推力窑头燃烧器的应用</li>
-              <li>烟室与缩口的影响</li>
+              <li data-i18n="aux.p1">总风量的确定</li>
+              <li data-i18n="aux.p2">翻板阀作用的再认识</li>
+              <li data-i18n="aux.p3">大推力窑头燃烧器的应用</li>
+              <li data-i18n="aux.p4">烟室与缩口的影响</li>
             </ul>
           </div>
         </div>
@@ -438,8 +441,8 @@
       <div class="container">
         <div class="section-head">
           <span class="section-head__eyebrow">ADVANTAGE</span>
-          <h2 class="section-head__title">为什么选择我们</h2>
-          <p class="section-head__desc">
+          <h2 class="section-head__title" data-i18n="adv.title">为什么选择我们</h2>
+          <p class="section-head__desc" data-i18n="adv.desc">
             水泥回转窑工况差异大，通用装备往往难以匹配。
             我们的做法是从客户现有系统出发，而不是套用标准型号。
           </p>
@@ -448,16 +451,16 @@
         <ol class="feature">
           <li class="feature__item reveal">
             <span class="feature__num">01</span>
-            <h3>量身定做而非标准化</h3>
-            <p>
+            <h3 data-i18n="adv.1t">量身定做而非标准化</h3>
+            <p data-i18n="adv.1d">
               每一套装备均根据客户煤粉特性、预热器结构与篦冷机性能确定设计参数；
               并对客户现有的喂煤秤、输送风机与管道现状一并分析优化。
             </p>
           </li>
           <li class="feature__item reveal">
             <span class="feature__num">02</span>
-            <h3>硬件之外提供系统优化</h3>
-            <p>
+            <h3 data-i18n="adv.2t">硬件之外提供系统优化</h3>
+            <p data-i18n="adv.2d">
               不止供货设备，同时承接窑系统审计、立磨系统审计与烧成系统优化改造，
               从系统层面解决能耗问题。
             </p>
@@ -471,8 +474,8 @@
       <div class="container">
         <div class="section-head">
           <span class="section-head__eyebrow">APPLICATIONS</span>
-          <h2 class="section-head__title">典型应用案例</h2>
-          <p class="section-head__desc">
+          <h2 class="section-head__title" data-i18n="case.title">典型应用案例</h2>
+          <p class="section-head__desc" data-i18n="case.desc">
             以下为部分客户产线的实际运行记录。技术指标因工况而异，
             完整数据可提供原始调试报告。
           </p>
@@ -544,7 +547,7 @@
         </div>
 
         <div class="text-center" style="margin-top: var(--sp-7);">
-          <a href="cases.html" class="btn btn--ghost">查看更多应用案例</a>
+          <a href="cases.html" class="btn btn--ghost" data-i18n="case.more">查看更多应用案例</a>
         </div>
       </div>
     </section>
@@ -554,22 +557,22 @@
       <div class="container">
         <div class="capability">
           <div class="capability__item">
-            <h3 class="capability__title">热工标定与审计</h3>
-            <p class="capability__desc">
+            <h3 class="capability__title" data-i18n="svc.1t">热工标定与审计</h3>
+            <p class="capability__desc" data-i18n="svc.1d">
               对用户提出的具体需求进行系统工艺检测，并就提升业绩指标提出技术方案与建议。
               含烟气综合检测、温度与压力测量、红外成像检测、气体成分检测等手段。
             </p>
           </div>
           <div class="capability__item">
-            <h3 class="capability__title">CFD 仿真模拟</h3>
-            <p class="capability__desc">
+            <h3 class="capability__title" data-i18n="svc.2t">CFD 仿真模拟</h3>
+            <p class="capability__desc" data-i18n="svc.2d">
               燃烧器与撒料箱均以计算流体力学优化设计，
               撒料分散效果另以离散单元研究验证，同工况可复现计算。
             </p>
           </div>
           <div class="capability__item">
-            <h3 class="capability__title">标准化交付</h3>
-            <p class="capability__desc">
+            <h3 class="capability__title" data-i18n="svc.3t">标准化交付</h3>
+            <p class="capability__desc" data-i18n="svc.3d">
               现场勘查 → 方案设计 → 设备制造 → 安装调试 → 操作培训。
               售前、售中、售后三个阶段，24 小时响应。
             </p>
@@ -583,8 +586,8 @@
       <div class="container">
         <div class="section-head">
           <span class="section-head__eyebrow">MILESTONES</span>
-          <h2 class="section-head__title">发展历程</h2>
-          <p class="section-head__desc">
+          <h2 class="section-head__title" data-i18n="tl.title">发展历程</h2>
+          <p class="section-head__desc" data-i18n="tl.desc">
             十余年专注水泥生产过程技术，从窑头燃烧器起步到成套技术方案。
           </p>
         </div>
@@ -593,42 +596,42 @@
           <li class="timeline__item">
             <span class="timeline__year">2011</span>
             <div class="timeline__body">
-              <h3>公司成立</h3>
-              <p>专注窑头燃烧器的设计制造与服务。</p>
+              <h3 data-i18n="tl.1t">公司成立</h3>
+              <p data-i18n="tl.1d">专注窑头燃烧器的设计制造与服务。</p>
             </div>
           </li>
           <li class="timeline__item">
             <span class="timeline__year">2014</span>
             <div class="timeline__body">
-              <h3>节能油枪系统进入市场</h3>
-              <p>中标西南水泥，同年应用于 30 余条生产线。</p>
+              <h3 data-i18n="tl.2t">节能油枪系统进入市场</h3>
+              <p data-i18n="tl.2d">中标西南水泥，同年应用于 30 余条生产线。</p>
             </div>
           </li>
           <li class="timeline__item">
             <span class="timeline__year">2017</span>
             <div class="timeline__body">
-              <h3>扩散式撒料箱研发成功</h3>
-              <p>同年应用于塔牌集团。</p>
+              <h3 data-i18n="tl.3t">扩散式撒料箱研发成功</h3>
+              <p data-i18n="tl.3d">同年应用于塔牌集团。</p>
             </div>
           </li>
           <li class="timeline__item">
             <span class="timeline__year">2020</span>
             <div class="timeline__body">
-              <h3>承担窑系统优化总包工程</h3>
-              <p>青松建化、北川四星水泥窑系统优化，以及金隅冀东海德堡水泥窑系统优化设计。</p>
+              <h3 data-i18n="tl.4t">承担窑系统优化总包工程</h3>
+              <p data-i18n="tl.4d">青松建化、北川四星水泥窑系统优化，以及金隅冀东海德堡水泥窑系统优化设计。</p>
             </div>
           </li>
           <li class="timeline__item">
             <span class="timeline__year">2024</span>
             <div class="timeline__body">
-              <h3>平面式分解炉燃烧器取得专利</h3>
-              <p>专利号 CN202420776209，同年完成四川德胜集团分解炉尾煤燃烧器改造。</p>
+              <h3 data-i18n="tl.5t">平面式分解炉燃烧器取得专利</h3>
+              <p data-i18n="tl.5d">专利号 CN202420776209，同年完成四川德胜集团分解炉尾煤燃烧器改造。</p>
             </div>
           </li>
         </ol>
 
         <div class="text-center" style="margin-top: var(--sp-7);">
-          <a href="about.html" class="btn btn--ghost">查看公司完整介绍</a>
+          <a href="about.html" class="btn btn--ghost" data-i18n="tl.more">查看公司完整介绍</a>
         </div>
       </div>
     </section>
@@ -638,8 +641,8 @@
       <div class="container">
         <div class="section-head">
           <span class="section-head__eyebrow">SERVICE PROCESS</span>
-          <h2 class="section-head__title">把方案落实到生产现场</h2>
-          <p class="section-head__desc">
+          <h2 class="section-head__title" data-i18n="proc.title">把方案落实到生产现场</h2>
+          <p class="section-head__desc" data-i18n="proc.desc">
             售前、售中、售后三个阶段，24 小时响应。
           </p>
         </div>
@@ -647,28 +650,28 @@
         <ol class="process">
           <li class="process__step">
             <span class="process__num">01</span>
-            <h3 class="process__title">现场勘查</h3>
-            <p class="process__desc">工程师到用户现场进行工艺检测，实测气体成分、温度与压力参数。</p>
+            <h3 class="process__title" data-i18n="proc.1t">现场勘查</h3>
+            <p class="process__desc" data-i18n="proc.1d">工程师到用户现场进行工艺检测，实测气体成分、温度与压力参数。</p>
           </li>
           <li class="process__step">
             <span class="process__num">02</span>
-            <h3 class="process__title">方案设计</h3>
-            <p class="process__desc">依据实测数据核对设备与图纸，提出技术方案及提升业绩指标的建议。</p>
+            <h3 class="process__title" data-i18n="proc.2t">方案设计</h3>
+            <p class="process__desc" data-i18n="proc.2d">依据实测数据核对设备与图纸，提出技术方案及提升业绩指标的建议。</p>
           </li>
           <li class="process__step">
             <span class="process__num">03</span>
-            <h3 class="process__title">设备制造</h3>
-            <p class="process__desc">按确认的设计参数制造，出厂前完成压力、流量与信号调试。</p>
+            <h3 class="process__title" data-i18n="proc.3t">设备制造</h3>
+            <p class="process__desc" data-i18n="proc.3d">按确认的设计参数制造，出厂前完成压力、流量与信号调试。</p>
           </li>
           <li class="process__step">
             <span class="process__num">04</span>
-            <h3 class="process__title">安装调试</h3>
-            <p class="process__desc">在停窑窗口内完成安装与投运，以客户签署的调试报告作为交付标志。</p>
+            <h3 class="process__title" data-i18n="proc.4t">安装调试</h3>
+            <p class="process__desc" data-i18n="proc.4d">在停窑窗口内完成安装与投运，以客户签署的调试报告作为交付标志。</p>
           </li>
           <li class="process__step">
             <span class="process__num">05</span>
-            <h3 class="process__title">操作培训</h3>
-            <p class="process__desc">向操作人员交接设备参数与调节方法，并提供后续技术支持。</p>
+            <h3 class="process__title" data-i18n="proc.5t">操作培训</h3>
+            <p class="process__desc" data-i18n="proc.5d">向操作人员交接设备参数与调节方法，并提供后续技术支持。</p>
           </li>
         </ol>
       </div>
@@ -680,8 +683,8 @@
 
         <div class="contact__info">
           <span class="section-head__eyebrow">CONTACT</span>
-          <h2 class="contact__title">联系我们</h2>
-          <p class="contact__desc">
+          <h2 class="contact__title" data-i18n="cta.title">联系我们</h2>
+          <p class="contact__desc" data-i18n="cta.desc">
             填写右侧表单，或直接致电。我们会在 1 个工作日内与您联系。
           </p>
 
@@ -769,20 +772,20 @@
             <img class="brand__logo" src="assets/img/logo.png?v=20261105" alt="嘉能恒业" width="145" height="42" style="height:42px;width:auto;max-width:190px;object-fit:contain">
             <span class="brand__mark">JNHY</span>
           </a>
-          <p class="footer__slogan">让资源创造更大的值。</p>
+          <p class="footer__slogan" data-i18n="foot.slogan">让资源创造更大的值。</p>
         </div>
 
         <nav class="footer__nav" aria-label="页脚导航">
           <div class="footer__col">
-            <h4>关于我们</h4>
+            <h4 data-i18n="foot.about">关于我们</h4>
             <ul>
-              <li><a href="#about">公司简介</a></li>
-              <li><a href="about.html">发展历程</a></li>
+              <li><a href="#about" data-i18n="foot.profile">公司简介</a></li>
+              <li><a href="about.html" data-i18n="foot.history">发展历程</a></li>
               <li><a href="about.html">资质荣誉</a></li>
             </ul>
           </div>
           <div class="footer__col">
-            <h4>核心产品</h4>
+            <h4 data-i18n="foot.products">核心产品</h4>
             <ul>
               <li><a href="#business">窑头燃烧器</a></li>
               <li><a href="#business">分解炉燃烧器</a></li>
@@ -792,18 +795,18 @@
             </ul>
           </div>
           <div class="footer__col">
-            <h4>EPC 与服务</h4>
+            <h4 data-i18n="foot.epc">EPC 与服务</h4>
             <ul>
-              <li><a href="#epc">SRF 燃料系统</a></li>
-              <li><a href="#epc">废液协同处置</a></li>
-              <li><a href="#epc">窑系统优化</a></li>
-              <li><a href="#cases">应用案例</a></li>
+              <li><a href="#epc" data-i18n="foot.srf">SRF 燃料系统</a></li>
+              <li><a href="#epc" data-i18n="foot.bw">废液协同处置</a></li>
+              <li><a href="#epc" data-i18n="foot.opt">窑系统优化</a></li>
+              <li><a href="#cases" data-i18n="foot.cases">应用案例</a></li>
             </ul>
           </div>
         </nav>
 
         <div class="footer__contact">
-          <h4>联系方式</h4>
+          <h4 data-i18n="foot.contact">联系方式</h4>
           <ul>
             <li>电话：028-8334 7568</li>
             <li>手机：139 8203 1367</li>
@@ -817,9 +820,9 @@
       <div class="footer__bottom">
         <span>© 2026 成都嘉能恒业科技有限公司 版权所有</span>
         <span class="footer__links">
-          <a href="legal.html">隐私政策</a>
-          <a href="legal.html">服务条款</a>
-          <a href="sitemap.html">网站地图</a>
+          <a href="legal.html" data-i18n="foot.privacy">隐私政策</a>
+          <a href="legal.html" data-i18n="foot.terms">服务条款</a>
+          <a href="sitemap.html" data-i18n="foot.map">网站地图</a>
         </span>
       </div>
     </div>
@@ -828,5 +831,6 @@
   <button class="back-top" id="backTop" aria-label="返回顶部">↑</button>
 
   <script src="assets/js/site.js?v=20261105"></script>
+  <script src="assets/js/i18n.js?v=20261105"></script>
 </body>
 </html>
